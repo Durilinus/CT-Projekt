@@ -5,6 +5,8 @@
  */
 package jachst;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author stefan.schaufler
@@ -18,10 +20,17 @@ public class Steuerung {
     Steuerung(GUI gui){
         System.out.println("faggot");
         dieGUI = gui;
+        neuesSpiel();
         
     }
     public void neuesSpiel(){
+        initFiguren();
+        rolf.setStartPos();
+        dieGUI.repaint();
         
+    }
+    public void zeichneAlles(Graphics g){
+        rolf.zeichne(g);
     }
     public void initFiguren(){
        rolf=new Held();

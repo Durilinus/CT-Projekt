@@ -25,6 +25,10 @@ public class Held extends Spielfigur{
             pX--;
         }
     }
+    public void setStartPos(){
+       pX = 10;
+       pY = 10;
+    }
     @Override
     public void berechneBilder() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

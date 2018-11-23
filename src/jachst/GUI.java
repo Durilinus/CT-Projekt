@@ -21,9 +21,10 @@ public class GUI extends javax.swing.JPanel {
         initComponents();
         strg = new Steuerung(this);
     }
-  //  public void paintComponent(Graphics g){
-        
-    //}
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        strg.zeichneAlles(g);
+    }
     
 
     /**
