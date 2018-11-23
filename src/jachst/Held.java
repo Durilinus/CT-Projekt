@@ -16,7 +16,7 @@ public class Held extends Spielfigur{
     protected void attacke() {
        
     }
-
+// FAAAG
     @Override
     protected void laufen() {
         if(rechts){
@@ -25,7 +25,6 @@ public class Held extends Spielfigur{
             pX--;
         }
     }
-
     @Override
     public void berechneBilder() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
