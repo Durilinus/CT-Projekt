@@ -27,22 +27,19 @@ public class JachstFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gUI1 = new jachst.GUI();
+        gUI2 = new jachst.GUI();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        gUI1.setBackground(new java.awt.Color(51, 204, 255));
-        gUI1.setPreferredSize(new java.awt.Dimension(1280, 720));
-
-        javax.swing.GroupLayout gUI1Layout = new javax.swing.GroupLayout(gUI1);
-        gUI1.setLayout(gUI1Layout);
-        gUI1Layout.setHorizontalGroup(
-            gUI1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout gUI2Layout = new javax.swing.GroupLayout(gUI2);
+        gUI2.setLayout(gUI2Layout);
+        gUI2Layout.setHorizontalGroup(
+            gUI2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 620, Short.MAX_VALUE)
         );
-        gUI1Layout.setVerticalGroup(
-            gUI1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gUI2Layout.setVerticalGroup(
+            gUI2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 355, Short.MAX_VALUE)
         );
 
@@ -50,11 +47,11 @@ public class JachstFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gUI1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(gUI2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gUI1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+            .addComponent(gUI2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -96,6 +93,6 @@ public class JachstFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private jachst.GUI gUI1;
+    private jachst.GUI gUI2;
     // End of variables declaration//GEN-END:variables
 }
