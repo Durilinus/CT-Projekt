@@ -18,4 +18,10 @@ public abstract class Sprite {
     public abstract void berechneSpiel();
     public abstract void gibAktuellesBild();
     public abstract void zeichne(Graphics g);
+    
+    public Sprite(){
+        System.out.println("deine Mum");
+    }
+    
+    
 }
