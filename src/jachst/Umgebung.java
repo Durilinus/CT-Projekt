@@ -6,6 +6,8 @@
 package jachst;
 
 import java.awt.Graphics;
+import java.io.File;
+import java.util.Scanner;
 
 /**
  *
@@ -13,7 +15,21 @@ import java.awt.Graphics;
  */
 public class Umgebung extends Sprite {
 
-    private Hindernis[] block = new Hindernis[5];
+    Scanner scan;
+
+    private void scanner() {
+
+        try {
+            scan = new Scanner(new File("level/level_1.txt"));
+            while (scan.hasNextLine()) {
+                System.out.println(scan.nextLine());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private Hindernis[] level = new Hindernis[5];
+
     @Override
     public void berechneBilder() {
     }
@@ -29,7 +45,5 @@ public class Umgebung extends Sprite {
     @Override
     public void zeichne(Graphics g) {
     }
-    
-    
-    
+
 }
