@@ -18,7 +18,7 @@ public class Steuerung {
     private Bodenmobs dieBodenMobs[];
     
     Steuerung(GUI gui){
-        System.out.println("faggot");
+       
         dieGUI = gui;
         neuesSpiel();
         

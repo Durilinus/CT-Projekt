@@ -7,7 +7,7 @@ package jachst;
 
 /**
  *
- * @author stefan.schaufler
+ * @author Christian.Metzger
  */
 public class JachstFrame extends javax.swing.JFrame {
 
@@ -30,17 +30,16 @@ public class JachstFrame extends javax.swing.JFrame {
         gUI1 = new jachst.GUI();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         javax.swing.GroupLayout gUI1Layout = new javax.swing.GroupLayout(gUI1);
         gUI1.setLayout(gUI1Layout);
         gUI1Layout.setHorizontalGroup(
             gUI1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         gUI1Layout.setVerticalGroup(
             gUI1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

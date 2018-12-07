@@ -13,8 +13,8 @@ import java.awt.Graphics;
  */
 
 public class Held extends Spielfigur{
-    final int STARTX = 10;
-    final int STARTY = 800;
+    final int STARTX = 0;
+    final int STARTY = 0;
     @Override
     protected void attacke() {
        
