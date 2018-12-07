@@ -33,13 +33,17 @@ public class Held extends Spielfigur{
        pY = STARTY;
     }
     @Override
-    public void berechneBilder() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void berechneBilder(long delta) {
+        animation += (delta/1000000);
+        if(animation > delay){
+           animation = 0;
+           doAnimation();
+        }
     }
 
     @Override
-    public void berechneSpiel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void berechneSpiel(long delta) {
+        
     }
 
     @Override
@@ -49,5 +53,14 @@ public class Held extends Spielfigur{
     @Override
     public void zeichne(Graphics g) {
         g.drawRect(pX, pY, 5, 10);
+        g.drawImage(alleBilder[aktBild], (int) x, (int) y,null);
     }    
+
+    @Override
+    public void doAnimation() {
+      aktBild++;
+      if(aktBild >= alleBilder.length){
+          aktBild = 0;
+      }
+    }
 }

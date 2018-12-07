@@ -23,12 +23,12 @@ public class Bodenmobs extends Spielfigur {
     }
 
     @Override
-    public void berechneBilder() {
+    public void berechneBilder(long delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void berechneSpiel() {
+    public void berechneSpiel(long delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,6 +39,11 @@ public class Bodenmobs extends Spielfigur {
 
     @Override
     public void zeichne(Graphics g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void doAnimation() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -15,6 +15,10 @@ public abstract class Spielfigur  extends Sprite {
     protected boolean nahkampf, rechts;
     protected int leben, pX, pY;
     protected Rectangle hitbox;
+
+    public Spielfigur(){
+        
+    }
     
     protected abstract void attacke();    
     protected abstract void laufen();    
