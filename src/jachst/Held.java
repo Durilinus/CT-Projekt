@@ -11,7 +11,10 @@ import java.awt.Graphics;
  *
  * @author stefan.schaufler
  */
+
 public class Held extends Spielfigur{
+    final int STARTX = 10;
+    final int STARTY = 800;
     @Override
     protected void attacke() {
        
@@ -26,8 +29,8 @@ public class Held extends Spielfigur{
         }
     }
     public void setStartPos(){
-       pX = 10;
-       pY = 10;
+       pX = STARTX;
+       pY = STARTY;
     }
     @Override
     public void berechneBilder() {
