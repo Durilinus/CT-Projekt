@@ -19,7 +19,7 @@ public class Bodenmobs extends Spielfigur {
 
     @Override
     protected void laufen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pX++;
     }
 
     @Override

@@ -16,6 +16,7 @@ public class JachstFrame extends javax.swing.JFrame {
      */
     public JachstFrame() {
         initComponents();
+       
     }
 
     /**

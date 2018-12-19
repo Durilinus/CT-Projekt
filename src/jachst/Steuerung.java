@@ -42,7 +42,8 @@ public class Steuerung {
         dieGUI.repaint();
         t1 = new Timer(10, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
-                  bewegeAlleMobs();   
+                  bewegeAlleMobs(); 
+                  dieGUI.repaint();
               }
             });
         t1.start();    
@@ -56,8 +57,13 @@ public class Steuerung {
             
         }
     }
+    public void bewegeHeld(){
+        rolf.laufen();
+        System.out.println("X-Koordinate: "+rolf.pX );
+    }
     public void zeichneAlles(Graphics g){
         rolf.zeichne(g);
+        System.out.println("zeichnet");
     }
     
     public void initFiguren(){

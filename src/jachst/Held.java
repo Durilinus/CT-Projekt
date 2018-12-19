@@ -6,6 +6,7 @@
 package jachst;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.awt.Graphics;
 
 public class Held extends Spielfigur{
     final int STARTX = 0;
-    final int STARTY = 0;
+    final int STARTY = 80;
     @Override
     protected void attacke() {
        
@@ -22,8 +23,9 @@ public class Held extends Spielfigur{
 // FAAAG
     @Override
     protected void laufen() {
-        if(rechts){
+        if(rechts == true){
             pX++;
+            
         }else{
             pX--;
         }
@@ -31,6 +33,7 @@ public class Held extends Spielfigur{
     public void setStartPos(){
        pX = STARTX;
        pY = STARTY;
+       rechts = true;
     }
     @Override
     public void berechneBilder(long delta) {
@@ -53,7 +56,9 @@ public class Held extends Spielfigur{
     @Override
     public void zeichne(Graphics g) {
         g.drawRect(pX, pY, 5, 10);
-        g.drawImage(alleBilder[aktBild], (int) x, (int) y,null);
+        
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(alleBilder[aktBild],pX , pY, 50,50,null);
     }    
 
     @Override

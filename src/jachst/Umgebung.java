@@ -30,13 +30,6 @@ public class Umgebung extends Sprite {
     }
     private Hindernis[] level = new Hindernis[5];
 
-    @Override
-    public void berechneBilder() {
-    }
-
-    @Override
-    public void berechneSpiel() {
-    }
 
     @Override
     public void gibAktuellesBild() {
@@ -44,6 +37,21 @@ public class Umgebung extends Sprite {
 
     @Override
     public void zeichne(Graphics g) {
+    }
+
+    @Override
+    public void berechneBilder(long delta) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void berechneSpiel(long delta) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void doAnimation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

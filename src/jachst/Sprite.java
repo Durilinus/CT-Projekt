@@ -8,6 +8,9 @@ package jachst;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -33,9 +36,20 @@ public abstract class Sprite extends Rectangle2D.Double {
         this.x = x;
         this.y = y;
         this.delay = delay;
-        this.width = alleBilder[0].getWidth();
-        this.height = alleBilder[0].getHeight();
+        initAlleBilder();
+//        this.width = alleBilder[0].getWidth();
+  //      this.height = alleBilder[0].getHeight();
         
+        
+    }
+    
+    public void initAlleBilder(){
+        alleBilder = new BufferedImage[1]; 
+        try {
+                   alleBilder[0] = ImageIO.read(new File("C:\\Users\\chris\\Desktop\\Planung\\CT-Projekt\\src\\jachst\\bilder\\HeldRechts.jpg"));
+               } catch (IOException e) {
+                   System.out.println("Es konnte kein Bild gefunden werden.");
+               }
     }
     
     
