@@ -21,5 +21,5 @@ public abstract class Spielfigur  extends Sprite {
     }
     
     protected abstract void attacke();    
-    protected abstract void laufen();    
+    protected abstract void laufen(boolean richtung);    
 }

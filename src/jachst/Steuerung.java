@@ -26,51 +26,64 @@ public class Steuerung {
     private Rectangle hitboxenFlugMobs[];
     private Rectangle hitboxHeld;
     
-    private static int kastenBreite;
-    private static int kastenHoehe;
-    private static final int KASTENMENGEX = 10;
-    private static final int KASTENMENGEY = 6;
+    private int kastenBreite;
+    private int kastenHoehe;
+    private final int KASTENMENGEX = 20;
+    private final int KASTENMENGEY = 10;
     
     Steuerung(GUI gui){
-        dieGUI = gui;
+        dieGUI = gui;   
         neuesSpiel();
         
+        
+      
     }
     public void neuesSpiel(){
-        initFiguren();
-        rolf.setStartPos();
         dieGUI.repaint();
+        initFiguren();      
         t1 = new Timer(10, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
-                  bewegeAlleMobs(); 
+                  bewegeAlleMobs(true, false); 
                   dieGUI.repaint();
               }
             });
-        t1.start();    
+        
+        t1.start();
+        
+        
     }
-    public void bewegeAlleMobs(){
+    public void heldSprung(){
+        rolf.berechneSprung();
+    }
+   
+   
+    public void bewegeAlleMobs(boolean richtungRechts, boolean springt){
         for (int i = 0; i < dieFlugMobs.length; i++) {
-            dieFlugMobs[i].laufen();   
+            dieFlugMobs[i].laufen(richtungRechts);   
         }
         for (int i = 0; i < dieBodenMobs.length; i++) {
-            dieBodenMobs[i].laufen();
+            dieBodenMobs[i].laufen(richtungRechts);
             
         }
     }
-    public void bewegeHeld(){
-        rolf.laufen();
+    public void initKaesten(){
+        kastenBreite = dieGUI.getWidth() / KASTENMENGEX;
+        kastenHoehe = dieGUI.getHeight() / KASTENMENGEY;  
+    }
+    public void bewegeHeld(boolean richtungRechts){
+        rolf.laufen(richtungRechts);
         System.out.println("X-Koordinate: "+rolf.pX );
     }
     public void zeichneAlles(Graphics g){
-        rolf.zeichne(g);
+        rolf.zeichne(g, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
+        
     }
     
+    
     public void initFiguren(){
-       kastenBreite = dieGUI.getWidth() / KASTENMENGEX;
-       kastenHoehe = dieGUI.getHeight() / KASTENMENGEY;
-        
        rolf = new Held();
+       rolf.setStartPos();
        dieFlugMobs = new Flugmobs[10];
        for(int i = 0; i < dieFlugMobs.length; i++){
            dieFlugMobs[i] = new Flugmobs();

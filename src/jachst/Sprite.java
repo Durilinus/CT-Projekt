@@ -17,11 +17,11 @@ import javax.imageio.ImageIO;
  * @author stefan.schaufler
  */
 public abstract class Sprite extends Rectangle2D.Double {
-    BufferedImage[] alleBilder;
+    protected static BufferedImage[] alleBilder;
     public abstract void berechneBilder(long delta);
     public abstract void berechneSpiel(long delta);
     public abstract void gibAktuellesBild();
-    public abstract void zeichne(Graphics g);
+    public abstract void zeichne(Graphics g, int breite, int hoehe);
     public abstract void doAnimation();
     protected double dx;
     protected double dy;

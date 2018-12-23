@@ -36,7 +36,7 @@ public class Umgebung extends Sprite {
     }
 
     @Override
-    public void zeichne(Graphics g) {
+    public void zeichne(Graphics g, int breite, int hoehe) {
     }
 
     @Override

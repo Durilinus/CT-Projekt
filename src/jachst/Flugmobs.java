@@ -18,7 +18,7 @@ public class Flugmobs extends Spielfigur {
     }
 
     @Override
-    protected void laufen() {
+    protected void laufen(boolean richtunh) {
         pX++;
     }
 
@@ -38,7 +38,7 @@ public class Flugmobs extends Spielfigur {
     }
 
     @Override
-    public void zeichne(Graphics g) {
+    public void zeichne(Graphics g, int breite, int hoehe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
