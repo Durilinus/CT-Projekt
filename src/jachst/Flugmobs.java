@@ -18,9 +18,10 @@ public class Flugmobs extends Spielfigur {
     }
 
     @Override
-    protected void laufen(boolean richtunh) {
+    protected void laufen() {
         pX++;
     }
+    
 
     @Override
     public void berechneBilder(long delta) {

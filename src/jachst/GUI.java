@@ -27,8 +27,6 @@ public class GUI extends javax.swing.JPanel {
         this.setFocusable(true);
         strg = new Steuerung(this);
         
-       
-        
         
     }
     public void paintComponent(Graphics g){
@@ -37,7 +35,6 @@ public class GUI extends javax.swing.JPanel {
         strg.zeichneAlles(g);
         
     }
-   
     
 
     /**
@@ -56,6 +53,9 @@ public class GUI extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -71,22 +71,28 @@ public class GUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-  
-      
+     
        if(evt.getKeyCode() == KeyEvent.VK_RIGHT){
-                strg.bewegeHeld(true); 
-                
+                strg.aendereHeldRichtung(1);           
        }
        if(evt.getKeyCode() == KeyEvent.VK_SPACE){
-                strg.heldSprung();
+                strg.springenderRolf();
+               
        }
      
        if(evt.getKeyCode() == KeyEvent.VK_LEFT){
-                strg.bewegeHeld(false); 
+                strg.aendereHeldRichtung(2); 
                 
        }
        
+       
     }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyCode() == KeyEvent.VK_RIGHT ){
+            strg.aendereHeldRichtung(0);
+        }
+    }//GEN-LAST:event_formKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

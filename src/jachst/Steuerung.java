@@ -33,17 +33,16 @@ public class Steuerung {
     
     Steuerung(GUI gui){
         dieGUI = gui;   
-        neuesSpiel();
-        
-        
-      
+        neuesSpiel();    
     }
     public void neuesSpiel(){
         dieGUI.repaint();
         initFiguren();      
-        t1 = new Timer(10, new ActionListener(){
+        t1 = new Timer(4, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
-                  bewegeAlleMobs(true, false); 
+                  bewegeAlleMobs(1, false); 
+                  rolf.laufen();
+                  rolf.pY = rolf.getSprungPos();
                   dieGUI.repaint();
               }
             });
@@ -52,26 +51,29 @@ public class Steuerung {
         
         
     }
-    public void heldSprung(){
-        rolf.berechneSprung();
+    
+    public void springenderRolf(){
+        rolf.springe();
+    }
+    public void aendereHeldRichtung(int richtung){
+        rolf.richtungWechsel(richtung);
     }
    
-   
-    public void bewegeAlleMobs(boolean richtungRechts, boolean springt){
+    public void bewegeAlleMobs(int richtungRechts, boolean springt){
         for (int i = 0; i < dieFlugMobs.length; i++) {
-            dieFlugMobs[i].laufen(richtungRechts);   
+            dieFlugMobs[i].laufen();   
         }
         for (int i = 0; i < dieBodenMobs.length; i++) {
-            dieBodenMobs[i].laufen(richtungRechts);
-            
+            dieBodenMobs[i].laufen();     
         }
+        
     }
     public void initKaesten(){
         kastenBreite = dieGUI.getWidth() / KASTENMENGEX;
         kastenHoehe = dieGUI.getHeight() / KASTENMENGEY;  
     }
-    public void bewegeHeld(boolean richtungRechts){
-        rolf.laufen(richtungRechts);
+    public void bewegeHeld(){
+        rolf.laufen();
         System.out.println("X-Koordinate: "+rolf.pX );
     }
     public void zeichneAlles(Graphics g){
@@ -94,7 +96,7 @@ public class Steuerung {
        }   
     }
     public void initHitboxen(){
-        hitboxHeld = new Rectangle(rolf.pX,rolf.pY, kastenBreite, kastenHoehe);
+        hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
     }
     
     

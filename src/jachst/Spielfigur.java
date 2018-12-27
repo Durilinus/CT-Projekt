@@ -12,14 +12,20 @@ import java.awt.Rectangle;
  * @author stefan.schaufler
  */
 public abstract class Spielfigur  extends Sprite {
-    protected boolean nahkampf, rechts;
-    protected int leben, pX, pY;
+    protected boolean nahkampf;
+    protected int leben, pX, pY, dieRichtung;
     protected Rectangle hitbox;
+    public final int STEHEN = 0;
+    public final int RECHTS = 1;
+    public final int LINKS = 2;
 
     public Spielfigur(){
         
     }
     
     protected abstract void attacke();    
-    protected abstract void laufen(boolean richtung);    
+    protected abstract void laufen();    
+    protected void richtungWechsel(int richtung){
+        dieRichtung = richtung;
+    }
 }

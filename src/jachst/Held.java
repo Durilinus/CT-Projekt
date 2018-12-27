@@ -22,59 +22,42 @@ public class Held extends Spielfigur{
     
     private final int STARTX = 0;
     private final int STARTY = 400;
-    private int maxSprungweite;
-    private int sprungPosition;
-    private Timer t2;
-    private boolean fällt;
+    private static Sprung derSprung;
+    
+
     public Held(){
-        maxSprungweite = 100;
-        sprungPosition = 0;
+        
     }
     @Override
     protected void attacke() {
        
     }
 
-    protected void laufen(boolean richtung) {
-        rechts = richtung;
-        
-        if(rechts == true){
+    protected void laufen() {
+        if(dieRichtung == RECHTS){
             pX++;  
-        }else{
+        }
+        if(dieRichtung == LINKS){
             pX--;
         }
-      
-    }
-    
-     
-    public void berechneSprung() {
-      
-        t2 = new Timer(20, new ActionListener(){
-              public void actionPerformed(ActionEvent ae){
-                   
-                      pY = pY +  Math.abs( (-(1/50)*((sprungPosition - 50)^2)));
-                      sprungPosition++;
-                      System.out.println(pY);
-                      pX++;
-                   
-              }
-            });
-        
-        t2.start();
-        while(sprungPosition != maxSprungweite){ 
-            t2.stop();
+        if(dieRichtung == STEHEN){
+            pX = pX;
         }
     }
-      
     
-   
+    public void springe(){
+        derSprung = new Sprung();
+        derSprung.start();
+        System.out.println("gesprungen");
+    }
+    public int getSprungPos(){
+        return Sprung.positionY;
+    }
     
-    
-            
     public void setStartPos(){
        pX = STARTX;
        pY = STARTY;
-       rechts = true;
+       dieRichtung = 0;
     }
     @Override
     public void berechneBilder(long delta) {
@@ -99,7 +82,7 @@ public class Held extends Spielfigur{
       //  g.drawRect(pX, pY, 5, 10);
         
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(alleBilder[aktBild],pX , pY, breite , hoehe ,null);
+        g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
     }    
 
     @Override

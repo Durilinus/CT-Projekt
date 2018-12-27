@@ -18,7 +18,7 @@ public class Bodenmobs extends Spielfigur {
     }
 
     @Override
-    protected void laufen(boolean richtung) {
+    protected void laufen() {
         pX++;
     }
 
