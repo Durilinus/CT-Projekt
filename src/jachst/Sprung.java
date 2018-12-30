@@ -16,7 +16,7 @@ public class Sprung extends Thread{
 
     private static boolean hochpunktErreicht = false;
     private static boolean fertig = false;
-    private static int sprungHoehe = 50;
+    private static int sprungHoehe = 80;
     private static int anfangY = 400;
     public static int positionY = anfangY;
     
@@ -26,7 +26,7 @@ public class Sprung extends Thread{
     }
     
     public void run(){
-        int delay = 4;
+        int delay = 5;
         fertig = false;
         while(fertig != true){
             springen();

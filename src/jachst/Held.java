@@ -22,6 +22,7 @@ public class Held extends Spielfigur{
     
     private final int STARTX = 0;
     private final int STARTY = 400;
+    private Hindernis dieHindernisse[];
     private static Sprung derSprung;
     
 
@@ -34,8 +35,10 @@ public class Held extends Spielfigur{
     }
 
     protected void laufen() {
+     
+    
         if(dieRichtung == RECHTS){
-            pX++;  
+            pX++; 
         }
         if(dieRichtung == LINKS){
             pX--;

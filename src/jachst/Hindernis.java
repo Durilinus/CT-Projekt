@@ -5,6 +5,8 @@
  */
 package jachst;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author stefan.schaufler
@@ -12,11 +14,12 @@ package jachst;
 public class Hindernis {
     private boolean tödlich;
     private int boxX, boxY;
-    private boolean begehbar;
+    private int radiusZuSeite;
     
-    public Hindernis(int pX, int pY, boolean begehbarjaein, boolean töten){
+    
+    public Hindernis(int pX, int pY, boolean töten){
+      radiusZuSeite = 50;
       tödlich = töten;
-      begehbar = begehbarjaein;
       boxX = pX;
       boxY = pY;
     }
@@ -24,9 +27,17 @@ public class Hindernis {
     public boolean gibTödlich(){
         return tödlich;
     }
-    public boolean gibBegehbar(){
-        return begehbar;
+    public void zeichne(Graphics g){
+        g.drawRect(boxX, boxY, radiusZuSeite, radiusZuSeite);
     }
-    
+    public int getX(){
+        return boxX;
+    }
+    public int getY(){
+        return boxY;
+    }
+    public int getRadZuSeite(){
+        return radiusZuSeite;
+    }
     
 }

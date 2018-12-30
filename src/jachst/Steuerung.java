@@ -25,11 +25,14 @@ public class Steuerung {
     private Rectangle hitboxenBodenMobs[];
     private Rectangle hitboxenFlugMobs[];
     private Rectangle hitboxHeld;
-    
-    private int kastenBreite;
-    private int kastenHoehe;
+    private Rectangle hitboxHindernisse[];
+    private Hindernis dasHindernis[];
+    private int kastenBreite = 50;
+    private int kastenHoehe = 50;
     private final int KASTENMENGEX = 20;
     private final int KASTENMENGEY = 10;
+    private static final int hindernisPX[] = {100, 200, 300, 400};
+    private static final int hindernisPY[] = {400, 400, 400, 400};
     
     Steuerung(GUI gui){
         dieGUI = gui;   
@@ -37,21 +40,27 @@ public class Steuerung {
     }
     public void neuesSpiel(){
         dieGUI.repaint();
-        initFiguren();      
-        t1 = new Timer(4, new ActionListener(){
+        initFiguren(); 
+       
+        t1 = new Timer(5, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
                   bewegeAlleMobs(1, false); 
-                  rolf.laufen();
+                  bewegeHeld();
+                  
                   rolf.pY = rolf.getSprungPos();
                   dieGUI.repaint();
               }
             });
         
-        t1.start();
-        
-        
+        t1.start();      
     }
-    
+    private void initHindernisse(){
+        dasHindernis = new Hindernis[4];
+        boolean tödlich = false;
+        for (int i = 0; i < dasHindernis.length; i++) {
+            dasHindernis[i] = new Hindernis(hindernisPX[i], hindernisPY[i], tödlich); 
+        }
+    }
     public void springenderRolf(){
         rolf.springe();
     }
@@ -65,27 +74,34 @@ public class Steuerung {
         }
         for (int i = 0; i < dieBodenMobs.length; i++) {
             dieBodenMobs[i].laufen();     
-        }
-        
+        }      
     }
     public void initKaesten(){
         kastenBreite = dieGUI.getWidth() / KASTENMENGEX;
         kastenHoehe = dieGUI.getHeight() / KASTENMENGEY;  
     }
     public void bewegeHeld(){
-        rolf.laufen();
-        System.out.println("X-Koordinate: "+rolf.pX );
+        if(pruefeHeldAnHindernis() == false){
+            rolf.laufen();
+            System.out.println("X-Koordinate: "+rolf.pX );
+        }
     }
     public void zeichneAlles(Graphics g){
         rolf.zeichne(g, kastenBreite, kastenHoehe);
+        for (int i = 0; i < dasHindernis.length; i++) {
+            dasHindernis[i].zeichne(g);
+        }
+        g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
         
     }
-    
-    
     public void initFiguren(){
+       initHindernisse();
        rolf = new Held();
        rolf.setStartPos();
+       
+       initHitboxen();
+  
        dieFlugMobs = new Flugmobs[10];
        for(int i = 0; i < dieFlugMobs.length; i++){
            dieFlugMobs[i] = new Flugmobs();
@@ -95,9 +111,29 @@ public class Steuerung {
            dieBodenMobs[i] = new Bodenmobs();
        }   
     }
+    public void aktualisiereHitboxen(){
+        hitboxHeld.setLocation((int)rolf.pX, (int)rolf.pY);
+       
+        
+    }
+    public boolean pruefeHeldAnHindernis(){
+         aktualisiereHitboxen();
+         System.out.println("aktualisiert hitboxen");
+         for (int i = 0; i < hitboxHindernisse.length; i++) {
+             
+             if(hitboxHeld.intersects(hitboxHindernisse[i]) == true){
+                 System.out.println("erwiScht!!!!!!!!!!!!!!!!!!");
+                 return true;
+             }
+         }
+         return false;
+    }
     public void initHitboxen(){
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
-    }
-    
+        hitboxHindernisse = new Rectangle[4];
+        for (int i = 0; i < hitboxHindernisse.length; i++) {
+            hitboxHindernisse[i] = new Rectangle(dasHindernis[i].getX(), dasHindernis[i].getY(), dasHindernis[i].getRadZuSeite(), dasHindernis[i].getRadZuSeite());    
+        }     
+    }   
     
 }
