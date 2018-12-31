@@ -24,19 +24,40 @@ public class Held extends Spielfigur{
     private final int STARTY = 400;
     private Hindernis dieHindernisse[];
     private static Sprung derSprung;
+    private boolean berührtHindernis;
+    private Steuerung control;
     
 
-    public Held(){
-        
+    public Held(Steuerung strg){
+        control = strg;
     }
     @Override
     protected void attacke() {
        
     }
+    public void setBerührtHindernis(boolean i){
+        berührtHindernis = i;
+    }
+    public boolean getBerührtHindernis(){
+        return berührtHindernis;
+    }
+    public void aktualisiereBerührtHindernis(){
+        control.pruefeHeldAnHindernis();
+    }
+    private boolean direktÜberHindernis(){
+        pY++;
+        if(control.pruefeHeldAnHindernis() == true){
+            pY--;
+            return true;
+        }
+        pY++;
+        return false;
+    }
 
     protected void laufen() {
-     
-    
+        if(direktÜberHindernis() == false){
+            derSprung.heldÜberHindernis = false;
+        }
         if(dieRichtung == RECHTS){
             pX++; 
         }
@@ -46,10 +67,11 @@ public class Held extends Spielfigur{
         if(dieRichtung == STEHEN){
             pX = pX;
         }
+        
     }
     
     public void springe(){
-        derSprung = new Sprung();
+        derSprung = new Sprung(this);
         derSprung.start();
         System.out.println("gesprungen");
     }

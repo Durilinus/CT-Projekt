@@ -28,4 +28,7 @@ public abstract class Spielfigur  extends Sprite {
     protected void richtungWechsel(int richtung){
         dieRichtung = richtung;
     }
+    protected int getRichtung(){
+        return dieRichtung;
+    }
 }

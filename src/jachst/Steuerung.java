@@ -45,6 +45,7 @@ public class Steuerung {
         t1 = new Timer(5, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
                   bewegeAlleMobs(1, false); 
+                  
                   bewegeHeld();
                   
                   rolf.pY = rolf.getSprungPos();
@@ -81,10 +82,20 @@ public class Steuerung {
         kastenHoehe = dieGUI.getHeight() / KASTENMENGEY;  
     }
     public void bewegeHeld(){
-        if(pruefeHeldAnHindernis() == false){
-            rolf.laufen();
-            System.out.println("X-Koordinate: "+rolf.pX );
-        }
+        pruefeHeldAnHindernis();
+        rolf.laufen();
+        if(pruefeHeldAnHindernis() == true){
+            if(rolf.getRichtung() == 1){
+                rolf.pX-= 2;
+            }
+            if(rolf.getRichtung() == 2){
+                rolf.pX+= 2;
+            }
+          //  aendereHeldRichtung(0);
+        } 
+        System.out.println("X-Koordinate: "+rolf.pX );
+        System.out.println("Y-Koordinate: "+rolf.pY );
+        
     }
     public void zeichneAlles(Graphics g){
         rolf.zeichne(g, kastenBreite, kastenHoehe);
@@ -97,7 +108,7 @@ public class Steuerung {
     }
     public void initFiguren(){
        initHindernisse();
-       rolf = new Held();
+       rolf = new Held(this);
        rolf.setStartPos();
        
        initHitboxen();
@@ -112,9 +123,10 @@ public class Steuerung {
        }   
     }
     public void aktualisiereHitboxen(){
-        hitboxHeld.setLocation((int)rolf.pX, (int)rolf.pY);
-       
-        
+        hitboxHeld.setLocation((int)rolf.pX, (int)rolf.pY);      
+    }
+    public int getHeldX(){
+        return rolf.pX;
     }
     public boolean pruefeHeldAnHindernis(){
          aktualisiereHitboxen();
@@ -123,9 +135,11 @@ public class Steuerung {
              
              if(hitboxHeld.intersects(hitboxHindernisse[i]) == true){
                  System.out.println("erwiScht!!!!!!!!!!!!!!!!!!");
+                 rolf.setBerührtHindernis(true);
                  return true;
              }
          }
+         rolf.setBerührtHindernis(false);
          return false;
     }
     public void initHitboxen(){
