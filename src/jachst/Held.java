@@ -118,6 +118,7 @@ public class Held extends Spielfigur{
         
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
+        
     }    
 
     @Override

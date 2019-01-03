@@ -106,7 +106,7 @@ public class Steuerung {
         }
         g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
-        
+       
     }
     public void initFiguren(){
        initHindernisse();

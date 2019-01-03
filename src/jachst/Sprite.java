@@ -37,14 +37,14 @@ public abstract class Sprite extends Rectangle2D.Double {
         this.y = y;
         this.delay = delay;
         initAlleBilder();
-//        this.width = alleBilder[0].getWidth();
-  //      this.height = alleBilder[0].getHeight();
+        //this.width = alleBilder[0].getWidth();
+        //this.height = alleBilder[0].getHeight();
         
         
     }
     
     public void initAlleBilder(){
-        alleBilder = new BufferedImage[1]; 
+        alleBilder = new BufferedImage[5]; 
         try {
                    alleBilder[0] = ImageIO.read(new File("C:\\Users\\chris\\Desktop\\Planung\\CT-Projekt\\src\\jachst\\bilder\\HeldRechts.jpg"));
                } catch (IOException e) {
@@ -52,5 +52,8 @@ public abstract class Sprite extends Rectangle2D.Double {
                }
     }
     
-    
+    public void drawObject(Graphics g){
+        g.drawImage(alleBilder[aktBild],(int) x, (int) y,null);      
+    }
+
 }
