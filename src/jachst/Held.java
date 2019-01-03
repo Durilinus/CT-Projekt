@@ -27,6 +27,7 @@ public class Held extends Spielfigur{
     private boolean berührtHindernis;
     private Steuerung control;
     
+    
 
     public Held(Steuerung strg){
         control = strg;
@@ -35,22 +36,31 @@ public class Held extends Spielfigur{
     protected void attacke() {
        
     }
+    public void fallen(){  
+        if(derSprung != null && derSprung.isAlive() == false && direktÜberHindernis() == false && STARTY != pY){
+            derSprung.positionY++;
+        }
+    }
     public void setBerührtHindernis(boolean i){
         berührtHindernis = i;
+        
     }
+    
     public boolean getBerührtHindernis(){
         return berührtHindernis;
     }
     public void aktualisiereBerührtHindernis(){
         control.pruefeHeldAnHindernis();
     }
-    private boolean direktÜberHindernis(){
+    public boolean direktÜberHindernis(){
         pY++;
         if(control.pruefeHeldAnHindernis() == true){
             pY--;
+            Sprung.heldÜberHindernis = true;
             return true;
         }
-        pY++;
+        pY--;
+        Sprung.heldÜberHindernis = true;
         return false;
     }
 

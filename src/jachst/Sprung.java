@@ -23,23 +23,24 @@ public class Sprung extends Thread{
     public static boolean heldÜberHindernis;
     private static int zwischenY;
     
+    
     public Sprung(Held held){
        derHeld = held;
-       
+       sprungHoehe = 80 + (anfangY - derHeld.pY);
     }
     
     public void run(){
         int delay = 4;
         fertig = false;
+        derHeld.pY-= 2;
         while(fertig != true){
-            derHeld.aktualisiereBerührtHindernis();       
-            if(derHeld.getBerührtHindernis() == true){
-               do{
-                   
-               }while(heldÜberHindernis == true);      
+              
+            if(derHeld.direktÜberHindernis() == true){  
+                fertig = true;
             } else {
                 springen();
-            }    
+                System.out.println("springt");
+            }
             
             try {
                 Thread.sleep(delay);
@@ -47,9 +48,15 @@ public class Sprung extends Thread{
                 
             }
         }
-        hochpunktErreicht = false;
         
+       
+        hochpunktErreicht = false;
+        anfangY = 400;
+        
+    
     }
+    
+   
    
 
     private void springen() {
@@ -62,12 +69,12 @@ public class Sprung extends Thread{
         if(hochpunktErreicht == true && positionY <= anfangY){
             positionY++;
             if(positionY == anfangY){
+            
                 fertig = true;
+                
             }
         }
         
     }
-     
-    
     
 }

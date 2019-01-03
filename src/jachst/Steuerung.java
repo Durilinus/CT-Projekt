@@ -42,13 +42,14 @@ public class Steuerung {
         dieGUI.repaint();
         initFiguren(); 
        
-        t1 = new Timer(5, new ActionListener(){
+        t1 = new Timer(4, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
                   bewegeAlleMobs(1, false); 
                   
                   bewegeHeld();
                   
                   rolf.pY = rolf.getSprungPos();
+                  rolf.fallen();
                   dieGUI.repaint();
               }
             });
@@ -62,6 +63,7 @@ public class Steuerung {
             dasHindernis[i] = new Hindernis(hindernisPX[i], hindernisPY[i], tödlich); 
         }
     }
+   
     public void springenderRolf(){
         rolf.springe();
     }

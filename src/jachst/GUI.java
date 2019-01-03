@@ -76,8 +76,10 @@ public class GUI extends javax.swing.JPanel {
                 strg.aendereHeldRichtung(1);           
        }
        if(evt.getKeyCode() == KeyEvent.VK_SPACE){
-                strg.springenderRolf();
                
+                strg.springenderRolf();
+                
+                
        }
      
        if(evt.getKeyCode() == KeyEvent.VK_LEFT){
