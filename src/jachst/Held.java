@@ -27,15 +27,18 @@ public class Held extends Spielfigur{
     private boolean berührtHindernis;
     private Steuerung control;
     
+    GUI gui;
     
 
-    public Held(Steuerung strg){
+    public Held(Steuerung strg, GUI G){
+        super(G);
         control = strg;
+        gui = G;
     }
-    @Override
-    protected void attacke() {
+    //@Override
+    //protected void attacke() {
        
-    }
+    //}
     public void fallen(){  
         if(derSprung != null && derSprung.isAlive() == false && direktÜberHindernis() == false && STARTY != pY){
             derSprung.positionY++;
@@ -94,38 +97,27 @@ public class Held extends Spielfigur{
        pY = STARTY;
        dieRichtung = 0;
     }
-    @Override
-    public void berechneBilder(long delta) {
-        animation += (delta/1000000);
-        if(animation > delay){
-           animation = 0;
-           doAnimation();
-        }
-    }
+    //@Override
+    
 
-    @Override
+    //@Override
     public void berechneSpiel(long delta) {
         
     }
 
-    @Override
+    //@Override
     public void gibAktuellesBild() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    @Override
+    //@Override
     public void zeichne(Graphics g, int breite, int hoehe) {
       //  g.drawRect(pX, pY, 5, 10);
         
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
+        //g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
         
     }    
 
-    @Override
-    public void doAnimation() {
-      aktBild++;
-      if(aktBild >= alleBilder.length){
-          aktBild = 0;
-      }
-    }
+   //@Override
+    
 }

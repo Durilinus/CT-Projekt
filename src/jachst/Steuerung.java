@@ -110,18 +110,18 @@ public class Steuerung {
     }
     public void initFiguren(){
        initHindernisse();
-       rolf = new Held(this);
+       rolf = new Held(this,dieGUI);
        rolf.setStartPos();
        
        initHitboxen();
   
        dieFlugMobs = new Flugmobs[10];
        for(int i = 0; i < dieFlugMobs.length; i++){
-           dieFlugMobs[i] = new Flugmobs();
+           dieFlugMobs[i] = new Flugmobs(dieGUI);
        }
        dieBodenMobs = new Bodenmobs[10];
        for(int i = 0; i < dieBodenMobs.length; i++){
-           dieBodenMobs[i] = new Bodenmobs();
+           dieBodenMobs[i] = new Bodenmobs(dieGUI);
        }   
     }
     public void aktualisiereHitboxen(){

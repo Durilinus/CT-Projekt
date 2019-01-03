@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author stefan.schaufler
  */
-public class Umgebung extends Sprite {
+public class Umgebung /*extends Sprite*/ {
 
     Scanner scan;
 
@@ -31,25 +31,25 @@ public class Umgebung extends Sprite {
     private Hindernis[] level = new Hindernis[5];
 
 
-    @Override
+    //@Override
     public void gibAktuellesBild() {
     }
 
-    @Override
+    //@Override
     public void zeichne(Graphics g, int breite, int hoehe) {
     }
 
-    @Override
+    //@Override
     public void berechneBilder(long delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public void berechneSpiel(long delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public void doAnimation() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

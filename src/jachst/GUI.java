@@ -5,20 +5,37 @@
  */
 package jachst;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Vector;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author stefan.schaufler
  */
-public class GUI extends javax.swing.JPanel {
+public class GUI extends javax.swing.JPanel implements Runnable {
 
     /**
      * Creates new form GUI
      */
     
-
+     
+    Spielfigur F = new Spielfigur(this);
+    private static final long serialVersionUID = 1L;
+    boolean game_lauft = true;
+    
+    long delta = 0;
+    long last = 0;
+    long fps = 0;
+    
+    Sprite Held;
+    Vector<Sprite> actors;
+    
     public Steuerung strg;
     
     public GUI() {
@@ -26,16 +43,77 @@ public class GUI extends javax.swing.JPanel {
         
         this.setFocusable(true);
         strg = new Steuerung(this);
+        initAlleBilder();
         
         
     }
+    Held H = new Held(strg,this);
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         strg.initKaesten();
         strg.zeichneAlles(g);
+        g.setColor(Color.red);
+        g.drawString("FPS: "+Long.toString(fps),20,10);
+        
+    }
+    private BufferedImage[] loadBilder(int bilder){
+        /*alleBilder = new BufferedImage[5]; 
+        try {
+                   alleBilder[0] = ImageIO.read(new File("C:\\Users\\chris\\Desktop\\Planung\\CT-Projekt\\src\\jachst\\bilder\\HeldRechts.jpg"));
+               } catch (IOException e) {
+                   System.out.println("Es konnte kein Bild gefunden werden.");
+               }*/
+              
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            //URL bild_url = getClass().getClassLoader().getResource(path);
+            
+            try{
+                source = ImageIO.read(new File("bilder/Held.gif"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
         
     }
     
+    private void computeDelta(){
+        delta = System.nanoTime() -last;
+        last = System.nanoTime();
+        
+        fps = ((long) 1e9)/delta;
+    }
+    
+    @Override
+    public void run() {
+        while(game_lauft){
+            computeDelta();
+            repaint();
+            
+            try{
+                Thread.sleep(10);
+            }catch(InterruptedException e){}
+        }
+        
+        
+    }
+    
+    public void initAlleBilder(){
+        
+        last = System.nanoTime();
+        
+        actors = new Vector<Sprite>();
+        BufferedImage[] held = this.loadBilder(3);
+        Held = new Sprite(held,H.pX,H.pY,100,this);
+        actors.add(Held);
+        
+        Thread t = new Thread(this);
+        t.start();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,6 +173,8 @@ public class GUI extends javax.swing.JPanel {
             strg.aendereHeldRichtung(0);
         }
     }//GEN-LAST:event_formKeyReleased
+
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
