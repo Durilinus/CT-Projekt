@@ -15,21 +15,32 @@ import java.util.Scanner;
  */
 public class Umgebung /*extends Sprite*/ {
 
-    Scanner scan;
-
-    private void scanner() {
-
-        try {
-            scan = new Scanner(new File("level/level_1.txt"));
-            while (scan.hasNextLine()) {
-                System.out.println(scan.nextLine());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+   // File f = new File("level/level1");
+  //  Leser l = new Leser(f);
+    Leser l;
+    Hindernis[] level;
+    int i =0;
+    
+    public Umgebung(String lvl){
+       level = new Hindernis[15];
+       File f = new File(lvl);
+       l = new Leser(f);
+       
     }
-    private Hindernis[] level = new Hindernis[5];
 
+    public void aufbau() {
+      //  for (int i = 0; i < level.length; i++) {
+            for (int y = 0; y < 10; y++) {
+                for (int x = 0; x < 20; x++) {
+                    if (l.gibMap(x, y) == 1) {
+                        level[i] = new Hindernis(x,y,false);  
+                        i++;
+                        System.out.println(i+"NEUES HINDERNIS: "+ x + ","+ y);
+                    }
+                }
+            }
+        //}
+    }
 
     //@Override
     public void gibAktuellesBild() {
@@ -37,6 +48,7 @@ public class Umgebung /*extends Sprite*/ {
 
     //@Override
     public void zeichne(Graphics g, int breite, int hoehe) {
+        
     }
 
     //@Override

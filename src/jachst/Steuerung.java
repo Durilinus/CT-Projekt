@@ -17,6 +17,7 @@ import javax.swing.Timer;
  * @author stefan.schaufler
  */
 public class Steuerung {
+    private Umgebung welt;
     private Flugmobs dieFlugMobs[];
     private Held rolf;
     private GUI dieGUI;
@@ -40,8 +41,10 @@ public class Steuerung {
         neuesSpiel();    
     }
     public void neuesSpiel(){
+        welt = new Umgebung("level/level1.txt");
         dieGUI.repaint();
         initFiguren(); 
+        
        
         t1 = new Timer(4, new ActionListener(){
               public void actionPerformed(ActionEvent ae){
@@ -58,11 +61,7 @@ public class Steuerung {
         t1.start();      
     }
     private void initHindernisse(){
-        dasHindernis = new Hindernis[4];
-        boolean tödlich = false;
-        for (int i = 0; i < dasHindernis.length; i++) {
-            dasHindernis[i] = new Hindernis(hindernisPX[i], hindernisPY[i], tödlich); 
-        }
+        welt.aufbau(); 
     }
    
     public void springenderRolf(){
@@ -102,8 +101,8 @@ public class Steuerung {
     }
     public void zeichneAlles(Graphics g){
         rolf.zeichne(g, kastenBreite, kastenHoehe);
-        for (int i = 0; i < dasHindernis.length; i++) {
-            dasHindernis[i].zeichne(g);
+        for (int i = 0; i < welt.level.length; i++) {
+            welt.level[i].zeichne(g);
         }
         g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
@@ -149,9 +148,9 @@ public class Steuerung {
     }
     public void initHitboxen(){
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
-        hitboxHindernisse = new Rectangle[4];
+        hitboxHindernisse = new Rectangle[welt.level.length];
         for (int i = 0; i < hitboxHindernisse.length; i++) {
-            hitboxHindernisse[i] = new Rectangle(dasHindernis[i].getX(), dasHindernis[i].getY(), dasHindernis[i].getRadZuSeite(), dasHindernis[i].getRadZuSeite());    
+            hitboxHindernisse[i] = new Rectangle(welt.level[i].getX(), welt.level[i].getY(), welt.level[i].getRadZuSeite(), welt.level[i].getRadZuSeite());    
         }     
     }   
     

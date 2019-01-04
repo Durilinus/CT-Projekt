@@ -20,8 +20,8 @@ public class Hindernis {
     public Hindernis(int pX, int pY, boolean töten){
       radiusZuSeite = 50;
       tödlich = töten;
-      boxX = pX;
-      boxY = pY;
+      boxX = pX*50;
+      boxY = pY*50;
     }
     
     public boolean gibTödlich(){
