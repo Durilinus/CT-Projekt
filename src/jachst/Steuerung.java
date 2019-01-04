@@ -33,6 +33,7 @@ public class Steuerung {
     private final int KASTENMENGEY = 10;
     private static final int hindernisPX[] = {100, 200, 300, 400};
     private static final int hindernisPY[] = {400, 400, 400, 400};
+    Sprite sprite;
     
     Steuerung(GUI gui){
         dieGUI = gui;   
@@ -106,6 +107,8 @@ public class Steuerung {
         }
         g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
+        
+        dieGUI.Held.drawObjects(g);
        
     }
     public void initFiguren(){

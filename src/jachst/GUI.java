@@ -107,7 +107,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         last = System.nanoTime();
         
         actors = new Vector<Sprite>();
-        BufferedImage[] held = this.loadBilder(3);
+        BufferedImage[] held = this.loadBilder(4);
         Held = new Sprite(held,H.pX,H.pY,100,this);
         actors.add(Held);
         

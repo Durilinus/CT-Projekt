@@ -18,13 +18,12 @@ import javax.imageio.ImageIO;
  */
 public  class Sprite extends Rectangle2D.Double {
     protected static BufferedImage[] alleBilder;
-    //public abstract void berechneBilder(long delta);
     //public abstract void berechneSpiel(long delta);
     //public abstract void gibAktuellesBild();
-    //public abstract void zeichne(Graphics g, int breite, int hoehe);
-    //public abstract void doAnimation();
+    //public abstract void zeichne(Graphics g, int breite, int hoehe);   
     protected double dx;
     protected double dy;
+    
     
     long delay;
     long animation;
@@ -39,6 +38,7 @@ public  class Sprite extends Rectangle2D.Double {
         this.width = alleBilder[0].getWidth();
         this.height = alleBilder[0].getHeight();
         parent = g;
+        
         
     }
     
@@ -56,5 +56,18 @@ public  class Sprite extends Rectangle2D.Double {
       }
     }
     
+    public void drawObjects(Graphics g){
+        g.drawImage(alleBilder[aktBild], (int)x, (int)y, null);
+    }
+    
+    public void move(long delta){
+        if(dx!=0){
+            x += dx*(delta/1e9);
+        }
+        
+        if(dy!=0){
+            y += dy*(delta/1e9);
+        }
+    }
 
 }
