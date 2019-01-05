@@ -66,6 +66,17 @@ public class Held extends Spielfigur{
         Sprung.heldÜberHindernis = true;
         return false;
     }
+    public boolean direktUnterHindernis(){
+        pY--;
+        if(control.pruefeHeldAnHindernis() == true){
+            pY++;
+            Sprung.heldÜberHindernis = true;
+            return true;
+        }
+        pY++;
+        Sprung.heldÜberHindernis = true;
+        return false;
+    }
 
     protected void laufen() {
         if(direktÜberHindernis() == false){
@@ -83,10 +94,14 @@ public class Held extends Spielfigur{
         
     }
     
-    public void springe(){
-        derSprung = new Sprung(this);
-        derSprung.start();
-        System.out.println("gesprungen");
+    
+    public void springe(){     
+       
+         derSprung = new Sprung(this);
+        if(derSprung.isAlive() != true) {
+         derSprung.start();
+         System.out.println("gesprungen");
+        }
     }
     public int getSprungPos(){
         return Sprung.positionY;

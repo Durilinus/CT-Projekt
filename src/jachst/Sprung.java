@@ -19,6 +19,7 @@ public class Sprung extends Thread{
     private static int sprungHoehe = 80;
     private static int anfangY = 400;
     private static Held derHeld;
+   
     public static int positionY = anfangY;
     public static boolean heldÜberHindernis;
     private static int zwischenY;
@@ -60,6 +61,11 @@ public class Sprung extends Thread{
    
 
     private void springen() {
+        if(derHeld.direktUnterHindernis() == true){
+            positionY++;
+            hochpunktErreicht = true;
+        }
+        
         if(hochpunktErreicht == false){
             positionY--;
         }

@@ -13,7 +13,8 @@ import java.awt.Rectangle;
  */
 public class Spielfigur {
     protected boolean nahkampf;
-    protected int leben, pX, pY, dieRichtung;
+    protected int leben, pX, dieRichtung;
+    protected static int pY;
     protected Rectangle hitbox;
     public final int STEHEN = 0;
     public final int RECHTS = 1;

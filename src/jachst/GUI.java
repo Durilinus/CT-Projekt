@@ -134,6 +134,9 @@ public class GUI extends javax.swing.JPanel implements Runnable {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -153,12 +156,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
        if(evt.getKeyCode() == KeyEvent.VK_RIGHT){
                 strg.aendereHeldRichtung(1);           
        }
-       if(evt.getKeyCode() == KeyEvent.VK_SPACE){
-               
-                strg.springenderRolf();
-                
-                
-       }
+       
      
        if(evt.getKeyCode() == KeyEvent.VK_LEFT){
                 strg.aendereHeldRichtung(2); 
@@ -172,7 +170,17 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         if(evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyCode() == KeyEvent.VK_RIGHT ){
             strg.aendereHeldRichtung(0);
         }
+        if(evt.getKeyCode() == KeyEvent.VK_SPACE){
+               
+                strg.springenderRolf();
+                
+                
+       }
     }//GEN-LAST:event_formKeyReleased
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+       
+    }//GEN-LAST:event_formKeyTyped
 
     
 
