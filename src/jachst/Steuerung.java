@@ -17,7 +17,8 @@ import javax.swing.Timer;
  * @author stefan.schaufler
  */
 public class Steuerung {
-    private Umgebung welt;
+    private Umgebung welt[];
+    private int aktuelleWelt = 0;
     private Flugmobs dieFlugMobs[];
     private Held rolf;
     private GUI dieGUI;
@@ -41,7 +42,8 @@ public class Steuerung {
         neuesSpiel();    
     }
     public void neuesSpiel(){
-        welt = new Umgebung("level/level1.txt");
+        generiereNächsteWelt();
+        welt[aktuelleWelt] = new Umgebung("level/level1.txt");
         dieGUI.repaint();
         initFiguren(); 
         
@@ -60,8 +62,15 @@ public class Steuerung {
         
         t1.start();      
     }
+    public void incAktuelleWelt(){
+        aktuelleWelt++;
+    }
     private void initHindernisse(){
-        welt.aufbau(); 
+        welt[aktuelleWelt].aufbau(); 
+    }
+    public void generiereNächsteWelt(){
+        welt = new Umgebung[aktuelleWelt+1];
+        
     }
    
     public void springenderRolf(){
@@ -101,8 +110,8 @@ public class Steuerung {
     }
     public void zeichneAlles(Graphics g){
         rolf.zeichne(g, kastenBreite, kastenHoehe);
-        for (int i = 0; i < welt.level.length; i++) {
-            welt.level[i].zeichne(g);
+        for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
+            welt[aktuelleWelt].level[i].zeichne(g);
         }
         g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
@@ -148,9 +157,9 @@ public class Steuerung {
     }
     public void initHitboxen(){
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
-        hitboxHindernisse = new Rectangle[welt.level.length];
+        hitboxHindernisse = new Rectangle[welt[aktuelleWelt].level.length];
         for (int i = 0; i < hitboxHindernisse.length; i++) {
-            hitboxHindernisse[i] = new Rectangle(welt.level[i].getX(), welt.level[i].getY(), welt.level[i].getRadZuSeite(), welt.level[i].getRadZuSeite());    
+            hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY(), welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite());    
         }     
     }   
     

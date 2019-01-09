@@ -70,7 +70,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
             //URL bild_url = getClass().getClassLoader().getResource(path);
             
             try{
-                source = ImageIO.read(new File("bilder/Held.gif"));
+                source = ImageIO.read(new File("bilder/Held.png"));
             }catch(IOException ioe){ioe.printStackTrace();}
             
             for(int x=0;x<bilder;x++){

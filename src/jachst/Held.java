@@ -79,6 +79,12 @@ public class Held extends Spielfigur{
     }
 
     protected void laufen() {
+        if(pX >= 1000){  
+             pX = 0;
+             control.incAktuelleWelt();
+             control.generiereNächsteWelt();
+             
+        }
         if(direktÜberHindernis() == false){
             derSprung.heldÜberHindernis = false;
         }
@@ -91,14 +97,14 @@ public class Held extends Spielfigur{
         if(dieRichtung == STEHEN){
             pX = pX;
         }
-        
+      
     }
     
     
     public void springe(){     
-       
+        
+        if(derSprung == null || derSprung.isAlive() == false) {
          derSprung = new Sprung(this);
-        if(derSprung.isAlive() != true) {
          derSprung.start();
          System.out.println("gesprungen");
         }
