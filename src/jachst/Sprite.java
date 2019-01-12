@@ -24,13 +24,16 @@ public  class Sprite extends Rectangle2D.Double {
     protected double dx;
     protected double dy;
     
+    Steuerung s;
     
     long delay;
     long animation;
     GUI parent;
     int aktBild = 0;
     
-    public Sprite(BufferedImage[] i,double x, double y, long delay,GUI g){
+    Held derHeld = new Held(s,parent);
+    
+    public Sprite(BufferedImage[] i,double x, double y, long delay,GUI g,Steuerung S){
         alleBilder = i;
         this.x = x;
         this.y = y;
@@ -38,7 +41,7 @@ public  class Sprite extends Rectangle2D.Double {
         this.width = alleBilder[0].getWidth();
         this.height = alleBilder[0].getHeight();
         parent = g;
-        
+        s = S;
         
     }
     
@@ -61,13 +64,9 @@ public  class Sprite extends Rectangle2D.Double {
     }
     
     public void move(long delta){
-        if(dx!=0){
-            x += dx*(delta/1e9);
-        }
-        
-        if(dy!=0){
-            y += dy*(delta/1e9);
-        }
+
+        x = s.getHeldX();
+        y = s.getHeldY();
     }
 
 }

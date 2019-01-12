@@ -116,7 +116,9 @@ public class Steuerung {
         g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         System.out.println("zeichnet");
         
-        dieGUI.Held.drawObjects(g);
+        //dieGUI.Heldlinks.drawObjects(g);
+        dieGUI.Heldrechts.drawObjects(g);
+
        
     }
     public void initFiguren(){
@@ -141,6 +143,11 @@ public class Steuerung {
     public int getHeldX(){
         return rolf.pX;
     }
+    
+    public int getHeldY(){
+        return rolf.pY;
+    }
+    
     public boolean pruefeHeldAnHindernis(){
          aktualisiereHitboxen();
          System.out.println("aktualisiert hitboxen");

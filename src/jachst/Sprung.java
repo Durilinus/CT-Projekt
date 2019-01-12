@@ -16,7 +16,7 @@ public class Sprung extends Thread{
 
     private static boolean hochpunktErreicht = false;
     private static boolean fertig = false;
-    private static int sprungHoehe = 100;
+    private static int sprungHoehe;
     private static int anfangY = 400;
     private static Held derHeld;
    
@@ -27,7 +27,7 @@ public class Sprung extends Thread{
     
     public Sprung(Held held){
        derHeld = held;
-       sprungHoehe = 100 + (anfangY - derHeld.pY);
+       sprungHoehe = 110 + (anfangY - derHeld.pY);
     }
     
     public void run(){

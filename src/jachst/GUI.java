@@ -29,14 +29,19 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     private static final long serialVersionUID = 1L;
     boolean game_lauft = true;
     
+    public Steuerung strg;
     long delta = 0;
     long last = 0;
     long fps = 0;
     
-    Sprite Held;
+
+    
+    Sprite Heldrechts;
+    Sprite Heldlinks;
+    Sprite Heldsteht;
     Vector<Sprite> actors;
     
-    public Steuerung strg;
+    
     
     public GUI() {
         initComponents();
@@ -56,21 +61,31 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         g.drawString("FPS: "+Long.toString(fps),20,10);
         
     }
-    private BufferedImage[] loadBilder(int bilder){
-        /*alleBilder = new BufferedImage[5]; 
-        try {
-                   alleBilder[0] = ImageIO.read(new File("C:\\Users\\chris\\Desktop\\Planung\\CT-Projekt\\src\\jachst\\bilder\\HeldRechts.jpg"));
-               } catch (IOException e) {
-                   System.out.println("Es konnte kein Bild gefunden werden.");
-               }*/
+    private BufferedImage[] loadBilderHeldRechts(int bilder){
               
             BufferedImage[] anim = new BufferedImage[bilder];
             BufferedImage source = null;
             
-            //URL bild_url = getClass().getClassLoader().getResource(path);
             
             try{
-                source = ImageIO.read(new File("bilder/Held.png"));
+                source = ImageIO.read(new File("bilder/Held_rechts.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+        
+    }
+    private BufferedImage[] loadBilderHeldLinks(int bilder){
+              
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/Held_links.png"));
             }catch(IOException ioe){ioe.printStackTrace();}
             
             for(int x=0;x<bilder;x++){
@@ -88,31 +103,38 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         fps = ((long) 1e9)/delta;
     }
     
+    
     @Override
     public void run() {
         while(game_lauft){
             computeDelta();
+
+            Heldrechts.berechneBilder(delta);
+            Heldrechts.move(delta);
             repaint();
             
             try{
                 Thread.sleep(10);
             }catch(InterruptedException e){}
-        }
-        
-        
+        }        
     }
+    
     
     public void initAlleBilder(){
         
         last = System.nanoTime();
         
         actors = new Vector<Sprite>();
-        BufferedImage[] held = this.loadBilder(4);
-        Held = new Sprite(held,H.pX,H.pY,100,this);
-        actors.add(Held);
+        BufferedImage[] heldlinks = this.loadBilderHeldLinks(4);
+        BufferedImage[] heldrechts = this.loadBilderHeldRechts(4);
+        //Heldlinks = new Sprite(heldlinks,H.pX,H.pY,100,this,strg);
+        Heldrechts = new Sprite(heldrechts,H.pX,H.pY,100,this,strg);
+        actors.add(Heldlinks);
+        actors.add(Heldrechts);
         
         Thread t = new Thread(this);
         t.start();
+        
     }
 
     /**
