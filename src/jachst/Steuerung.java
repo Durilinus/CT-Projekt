@@ -62,6 +62,9 @@ public class Steuerung {
         
         t1.start();      
     }
+    public void zeichneHintegrundWelt(Graphics g){
+        welt[aktuelleWelt].zeichneHintergrund(g);
+    }
     public void incAktuelleWelt(){
         aktuelleWelt++;
     }
@@ -109,11 +112,12 @@ public class Steuerung {
         
     }
     public void zeichneAlles(Graphics g){
+        zeichneHintegrundWelt(g);
         rolf.zeichne(g, kastenBreite, kastenHoehe);
         for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
             welt[aktuelleWelt].level[i].zeichne(g);
         }
-        g.drawRect(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
+        
         System.out.println("zeichnet");
         
         //dieGUI.Heldlinks.drawObjects(g);

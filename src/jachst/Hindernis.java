@@ -6,6 +6,11 @@
 package jachst;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -15,6 +20,14 @@ public class Hindernis {
     private boolean tödlich;
     private int boxX, boxY;
     private int radiusZuSeite;
+    private static BufferedImage image;
+    static {
+        try {
+            image = ImageIO.read(new File("bilder/Hindernis.png"));
+        } catch (IOException e) {
+            System.out.println("Es konnte kein Bild gefunden werden");
+        }
+    }
     
     
     public Hindernis(int pX, int pY, boolean töten){
@@ -28,7 +41,8 @@ public class Hindernis {
         return tödlich;
     }
     public void zeichne(Graphics g){
-        g.drawRect(boxX, boxY, radiusZuSeite, radiusZuSeite);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(image, boxX, boxY, radiusZuSeite, radiusZuSeite, null);
     }
     public int getX(){
         return boxX;

@@ -7,6 +7,7 @@ package jachst;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,6 +29,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     Spielfigur F = new Spielfigur(this);
     private static final long serialVersionUID = 1L;
     boolean game_lauft = true;
+
     
     public Steuerung strg;
     long delta = 0;
@@ -45,7 +47,6 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     
     public GUI() {
         initComponents();
-        
         this.setFocusable(true);
         strg = new Steuerung(this);
         initAlleBilder();
@@ -61,6 +62,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         g.drawString("FPS: "+Long.toString(fps),20,10);
         
     }
+   
     private BufferedImage[] loadBilderHeldRechts(int bilder){
               
             BufferedImage[] anim = new BufferedImage[bilder];
@@ -165,11 +167,11 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1110, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

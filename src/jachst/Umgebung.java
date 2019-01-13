@@ -6,8 +6,14 @@
 package jachst;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
+
 
 /**
  *
@@ -20,6 +26,14 @@ public class Umgebung /*extends Sprite*/ {
     Leser l;
     Hindernis[] level;
     int i =0;
+    private static BufferedImage hintergrund;
+    static {
+        try {
+            hintergrund = ImageIO.read(new File("bilder/hintergrund1.png"));
+        } catch (IOException e) {
+            System.out.println("Es konnte kein Bild gefunden werden");
+        }
+    }
     
     public Umgebung(String lvl){
        level = new Hindernis[15];
@@ -27,6 +41,7 @@ public class Umgebung /*extends Sprite*/ {
        l = new Leser(f);
        
     }
+    
 
     public void aufbau() {
       //  for (int i = 0; i < level.length; i++) {
@@ -47,8 +62,9 @@ public class Umgebung /*extends Sprite*/ {
     }
 
     //@Override
-    public void zeichne(Graphics g, int breite, int hoehe) {
-        
+    public void zeichneHintergrund(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(hintergrund, 0,0, null);
     }
 
     //@Override
