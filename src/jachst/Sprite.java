@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
  *
  * @author stefan.schaufler
  */
-public  class Sprite extends Rectangle2D.Double {
+public  class Sprite extends Rectangle2D.Double implements Drawable, Movable {
     protected static BufferedImage[] alleBilder;
     //public abstract void berechneSpiel(long delta);
     //public abstract void gibAktuellesBild();
@@ -30,6 +30,7 @@ public  class Sprite extends Rectangle2D.Double {
     long animation;
     GUI parent;
     int aktBild = 0;
+    boolean remove;
     
     Held derHeld = new Held(s,parent);
     
@@ -45,7 +46,8 @@ public  class Sprite extends Rectangle2D.Double {
         
     }
     
-    public void berechneBilder(long delta) {
+    @Override
+    public void doLogic(long delta) {
         animation += (delta/1000000);
         if(animation > delay){
            animation = 0;
@@ -59,10 +61,12 @@ public  class Sprite extends Rectangle2D.Double {
       }
     }
     
+    @Override
     public void drawObjects(Graphics g){
         g.drawImage(alleBilder[aktBild], (int)x, (int)y, null);
     }
     
+    @Override
     public void move(long delta){
 
         x = s.getHeldX();

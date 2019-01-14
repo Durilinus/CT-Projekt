@@ -139,6 +139,5 @@ public class Held extends Spielfigur{
         
     }    
 
-   //@Override
     
 }

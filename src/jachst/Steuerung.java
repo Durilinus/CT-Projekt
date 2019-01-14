@@ -113,17 +113,23 @@ public class Steuerung {
     }
     public void zeichneAlles(Graphics g){
         zeichneHintegrundWelt(g);
-        rolf.zeichne(g, kastenBreite, kastenHoehe);
+        //rolf.zeichne(g, kastenBreite, kastenHoehe);
         for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
-            welt[aktuelleWelt].level[i].zeichne(g);
+           welt[aktuelleWelt].level[i].zeichne(g);
         }
         
         System.out.println("zeichnet");
         
-        //dieGUI.Heldlinks.drawObjects(g);
-        dieGUI.Heldrechts.drawObjects(g);
-
-       
+        switch(rolf.getRichtung()){
+          
+            case 0: //dieGUI.Heldsteht.drawObjects(g);
+                    dieGUI.repaint();
+            case 1: dieGUI.Heldlinks.drawObjects(g); 
+                    dieGUI.repaint();
+            case 2: dieGUI.Heldrechts.drawObjects(g);
+                    dieGUI.repaint();
+        }
+             
     }
     public void initFiguren(){
        initHindernisse();

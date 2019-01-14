@@ -36,7 +36,9 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     long last = 0;
     long fps = 0;
     
-
+    Thread t;
+    Thread r;
+    Thread s;
     
     Sprite Heldrechts;
     Sprite Heldlinks;
@@ -98,6 +100,23 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         
     }
     
+    private BufferedImage[] loadBilderHeldSteht(int bilder){
+        
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/Held_steht.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+    }
+    
     private void computeDelta(){
         delta = System.nanoTime() -last;
         last = System.nanoTime();
@@ -105,14 +124,21 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         fps = ((long) 1e9)/delta;
     }
     
+    private void doLogic(){
+        
+       for(Movable mov:actors){
+           mov.doLogic(delta);
+           mov.move(delta);
+       } 
+    }
+    
     
     @Override
     public void run() {
         while(game_lauft){
             computeDelta();
-
-            Heldrechts.berechneBilder(delta);
-            Heldrechts.move(delta);
+            
+            doLogic();
             repaint();
             
             try{
@@ -127,17 +153,24 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         last = System.nanoTime();
         
         actors = new Vector<Sprite>();
+        
         BufferedImage[] heldlinks = this.loadBilderHeldLinks(4);
         BufferedImage[] heldrechts = this.loadBilderHeldRechts(4);
-        //Heldlinks = new Sprite(heldlinks,H.pX,H.pY,100,this,strg);
+        BufferedImage[] heldsteht = this.loadBilderHeldSteht(2);
+        Heldlinks = new Sprite(heldlinks,H.pX,H.pY,100,this,strg);
         Heldrechts = new Sprite(heldrechts,H.pX,H.pY,100,this,strg);
+        Heldsteht = new Sprite(heldsteht,H.pX,H.pY,100,this,strg);
         actors.add(Heldlinks);
         actors.add(Heldrechts);
+        actors.add(Heldsteht);
         
-        Thread t = new Thread(this);
+        
+        t = new Thread(this);
         t.start();
         
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
