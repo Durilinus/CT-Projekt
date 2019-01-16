@@ -39,13 +39,18 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     Thread t;
     Thread r;
     Thread s;
+    boolean once;
     
     Sprite Heldrechts;
     Sprite Heldlinks;
     Sprite Heldsteht;
     Vector<Sprite> actors;
     
-    
+    BufferedImage[] heldlinks;
+    BufferedImage[] heldrechts;
+    BufferedImage[] heldsteht;
+    BufferedImage heldspringtlinks;
+    BufferedImage heldspringtrechts;
     
     public GUI() {
         initComponents();
@@ -126,9 +131,22 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     
     private void doLogic(){
         
+        Vector<Sprite> trash = new Vector<Sprite>();
+        
        for(Movable mov:actors){
            mov.doLogic(delta);
            mov.move(delta);
+           
+           Sprite check = (Sprite)mov;
+           if(check.remove){
+              trash.add(check); 
+           }
+           
+           if(trash.size()>0){
+               for(Sprite s: trash){
+                   actors.remove(s);
+               }
+           }
        } 
     }
     
@@ -144,6 +162,9 @@ public class GUI extends javax.swing.JPanel implements Runnable {
             try{
                 Thread.sleep(10);
             }catch(InterruptedException e){}
+            System.out.println("actors"+actors.size());
+            System.out.println("sprung"+Heldsteht.sprung);
+            System.out.println("once"+Heldsteht.once);
         }        
     }
     
@@ -154,21 +175,72 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         
         actors = new Vector<Sprite>();
         
-        BufferedImage[] heldlinks = this.loadBilderHeldLinks(4);
-        BufferedImage[] heldrechts = this.loadBilderHeldRechts(4);
-        BufferedImage[] heldsteht = this.loadBilderHeldSteht(2);
-        Heldlinks = new Sprite(heldlinks,H.pX,H.pY,100,this,strg);
-        Heldrechts = new Sprite(heldrechts,H.pX,H.pY,100,this,strg);
-        Heldsteht = new Sprite(heldsteht,H.pX,H.pY,100,this,strg);
-        actors.add(Heldlinks);
-        actors.add(Heldrechts);
-        actors.add(Heldsteht);
+        heldlinks = this.loadBilderHeldLinks(4);
+        heldrechts = this.loadBilderHeldRechts(4);
+        heldsteht = this.loadBilderHeldSteht(2);
+        Heldlinks = new Sprite(heldlinks,strg.getHeldX(),strg.getHeldY(),100,this,strg);
+        Heldrechts = new Sprite(heldrechts,strg.getHeldX(),strg.getHeldY(),100,this,strg);
+        Heldsteht = new Sprite(heldsteht,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         
+        try{
+           heldspringtlinks = ImageIO.read(new File("bilder/Heldspringtlinks.png"));
+        }catch(IOException ioe){ioe.printStackTrace();}
+        try{
+           heldspringtrechts = ImageIO.read(new File("bilder/Heldspringtrechts.png"));
+        }catch(IOException ioe){ioe.printStackTrace();}
+        //actors.add(Heldlinks);
+        //actors.add(Heldrechts);
+        //actors.add(Heldsteht); 
         
-        t = new Thread(this);
-        t.start();
+        if(!this.once){
+            this.once = true;
+            t = new Thread(this);
+            t.start();
+        }
         
     }
+    
+    public void trashHeldsteht(){
+        Heldsteht.remove = true;
+        Heldsteht.once = false;
+    }
+    
+    public void trashHeldlinks(){
+        Heldlinks.remove = true;
+        Heldlinks.once = false;
+    }
+    
+    public void trashHeldrechts(){
+        Heldrechts.remove = true;
+        Heldrechts.once = false;
+    }
+    
+    public void addHeldsteht(){
+        Heldsteht = new Sprite(heldsteht,H.pX,H.pY,100,this,strg);
+        actors.add(Heldsteht); 
+        Heldsteht.once=true;
+    }
+    
+    public void addHeldlinks(){
+        Heldlinks = new Sprite(heldlinks,H.pX,H.pY,100,this,strg);
+        actors.add(Heldlinks);
+        Heldlinks.once = true;
+    }
+    
+    public void addHeldrechts(){
+        Heldrechts = new Sprite(heldrechts,H.pX,H.pY,100,this,strg);
+        actors.add(Heldrechts);
+        Heldrechts.once=true;
+    }
+    
+    public void drawHeldsprintlinks(Graphics g){
+        g.drawImage(heldspringtlinks, strg.getHeldX(),strg.getHeldY(), 50, 50, this);
+    }
+    
+    public void drawHeldsprintrechts(Graphics g){
+        g.drawImage(heldspringtrechts, strg.getHeldX(),strg.getHeldY(), 50, 50, this);
+    }
+    
     
     
 
@@ -230,7 +302,9 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         if(evt.getKeyCode() == KeyEvent.VK_SPACE){
                
                 strg.springenderRolf();
-                
+                Heldsteht.sprung = true;
+                Heldlinks.sprung = true;
+                Heldrechts.sprung = true;
                 
        }
     }//GEN-LAST:event_formKeyReleased

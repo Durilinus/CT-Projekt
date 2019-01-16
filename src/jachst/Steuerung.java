@@ -113,7 +113,7 @@ public class Steuerung {
     }
     public void zeichneAlles(Graphics g){
         zeichneHintegrundWelt(g);
-        //rolf.zeichne(g, kastenBreite, kastenHoehe);
+
         for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
            welt[aktuelleWelt].level[i].zeichne(g);
         }
@@ -122,12 +122,29 @@ public class Steuerung {
         
         switch(rolf.getRichtung()){
           
-            case 0: //dieGUI.Heldsteht.drawObjects(g);
-                    dieGUI.repaint();
-            case 1: dieGUI.Heldlinks.drawObjects(g); 
-                    dieGUI.repaint();
-            case 2: dieGUI.Heldrechts.drawObjects(g);
-                    dieGUI.repaint();
+            case 0: dieGUI.trashHeldlinks();
+                    dieGUI.trashHeldrechts();
+                    if(dieGUI.Heldsteht.once == false){
+                        dieGUI.addHeldsteht();
+                    }
+                    dieGUI.Heldsteht.drawObjects(g);
+                    break;
+                    
+            case 2: dieGUI.trashHeldrechts();
+                    dieGUI.trashHeldsteht();
+                   if(dieGUI.Heldlinks.once == false){    
+                        dieGUI.addHeldlinks();
+                    }    
+                    dieGUI.Heldlinks.drawObjects(g); 
+                    break;
+                    
+            case 1: dieGUI.trashHeldsteht();
+                    dieGUI.trashHeldlinks();
+                    if(dieGUI.Heldrechts.once == false){
+                        dieGUI.addHeldrechts();
+                    }
+                    dieGUI.Heldrechts.drawObjects(g);
+                    break;
         }
              
     }
