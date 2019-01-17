@@ -57,6 +57,8 @@ public class Steuerung {
                   rolf.pY = rolf.getSprungPos();
                   rolf.fallen();
                   dieGUI.repaint();
+                  rolf.pruefeHeldInDerLuft();
+                  System.out.println("springt: "+rolf.gibInDerLuft());
               }
             });
         
@@ -120,34 +122,81 @@ public class Steuerung {
         
         System.out.println("zeichnet");
         
+        if(rolf.gibInDerLuft() == false){
+            
         switch(rolf.getRichtung()){
           
             case 0: dieGUI.trashHeldlinks();
                     dieGUI.trashHeldrechts();
+                    dieGUI.trashHeldspringtlinks();
+                    dieGUI.trashHeldspringtrechts();
                     if(dieGUI.Heldsteht.once == false){
                         dieGUI.addHeldsteht();
                     }        
                     dieGUI.Heldsteht.drawObjects(g);
                     break;
                     
+            case 1: dieGUI.trashHeldsteht();
+                    dieGUI.trashHeldlinks();
+                    dieGUI.trashHeldspringtlinks();
+                    dieGUI.trashHeldspringtrechts();
+                    if(dieGUI.Heldrechts.once == false){
+                        dieGUI.addHeldrechts();
+                    }
+                    dieGUI.Heldrechts.drawObjects(g);
+                    break;
+                    
             case 2: dieGUI.trashHeldrechts();
                     dieGUI.trashHeldsteht();
+                    dieGUI.trashHeldspringtlinks();
+                    dieGUI.trashHeldspringtrechts();
                    if(dieGUI.Heldlinks.once == false){    
                         dieGUI.addHeldlinks();
                     }    
                     dieGUI.Heldlinks.drawObjects(g); 
                     break;
                     
+            
+        }
+    }else{
+        switch(rolf.getRichtung()){
+          
+            case 0: dieGUI.trashHeldlinks();
+                    dieGUI.trashHeldrechts();
+                    dieGUI.trashHeldsteht();
+                    dieGUI.trashHeldspringtlinks();
+                    if(dieGUI.Heldspringtrechts.once == false){
+                        dieGUI.addHeldspringtrechts();
+                    }        
+                    dieGUI.Heldspringtrechts.drawObjects(g);
+                    break;
+                    
             case 1: dieGUI.trashHeldsteht();
                     dieGUI.trashHeldlinks();
-                    if(dieGUI.Heldrechts.once == false){
-                        dieGUI.addHeldrechts();
+                    dieGUI.trashHeldrechts();
+                    dieGUI.trashHeldspringtlinks();
+                    if(dieGUI.Heldspringtrechts.once == false){
+                        dieGUI.addHeldspringtrechts();
                     }
-                    dieGUI.Heldrechts.drawObjects(g);
+                    dieGUI.Heldspringtrechts.drawObjects(g);
+                    break;        
+                    
+            case 2: dieGUI.trashHeldrechts();
+                    dieGUI.trashHeldsteht();
+                    dieGUI.trashHeldlinks();
+                    dieGUI.trashHeldspringtrechts();
+                   if(dieGUI.Heldspringtlinks.once == false){    
+                        dieGUI.addHeldspringtlinks();
+                    }    
+                    dieGUI.Heldspringtlinks.drawObjects(g); 
                     break;
+                    
         }
-             
+            
+     } 
+        
     }
+    
     public void initFiguren(){
        initHindernisse();
        rolf = new Held(this,dieGUI);

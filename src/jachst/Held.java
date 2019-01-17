@@ -151,6 +151,10 @@ public class Held extends Spielfigur{
         }
         
     }
+    
+    public boolean gibInDerLuft(){
+        return inDerLuft;
+    }
 
     
 }
