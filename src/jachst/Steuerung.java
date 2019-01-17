@@ -118,6 +118,7 @@ public class Steuerung {
            welt[aktuelleWelt].level[i].zeichne(g);
         }
         
+        //dieGUI.Heldspringtlinks.drawObjects(g);
         System.out.println("zeichnet");
         
         switch(rolf.getRichtung()){
@@ -126,7 +127,7 @@ public class Steuerung {
                     dieGUI.trashHeldrechts();
                     if(dieGUI.Heldsteht.once == false){
                         dieGUI.addHeldsteht();
-                    }
+                    }        
                     dieGUI.Heldsteht.drawObjects(g);
                     break;
                     

@@ -26,6 +26,7 @@ public class Held extends Spielfigur{
     private static Sprung derSprung;
     private boolean berührtHindernis;
     private Steuerung control;
+    private boolean springt;
     
     GUI gui;
     
@@ -103,12 +104,22 @@ public class Held extends Spielfigur{
     
     public void springe(){     
         
-        if(derSprung == null || derSprung.isAlive() == false) {
+        if(derSprung == null || derSprung.isAlive() == false){
          derSprung = new Sprung(this);
          derSprung.start();
          System.out.println("gesprungen");
+         springt = true;
         }
     }
+    
+    public boolean gibSpringt(){
+        return springt;
+    }
+    
+    public void setSpringt(boolean s){
+        springt = s;
+    }
+    
     public int getSprungPos(){
         return Sprung.positionY;
     }

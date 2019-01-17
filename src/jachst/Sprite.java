@@ -32,7 +32,6 @@ public  class Sprite extends Rectangle2D.Double implements Drawable, Movable {
     int aktBild = 0;
     boolean remove;
     boolean once = false;
-    boolean sprung = false;
     
     Held derHeld = new Held(s,parent);
     
