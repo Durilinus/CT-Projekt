@@ -63,15 +63,12 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         
     }
     
-    //Held H = new Held(strg,this);
-    
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         strg.initKaesten();
         strg.zeichneAlles(g);
         g.setColor(Color.red);
         g.drawString("FPS: "+Long.toString(fps),20,10);
-        Heldspringtlinks.drawObjects(g);
     }
    
     private BufferedImage[] loadBilderHeldRechts(int bilder){

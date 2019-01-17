@@ -118,7 +118,6 @@ public class Steuerung {
            welt[aktuelleWelt].level[i].zeichne(g);
         }
         
-        //dieGUI.Heldspringtlinks.drawObjects(g);
         System.out.println("zeichnet");
         
         switch(rolf.getRichtung()){

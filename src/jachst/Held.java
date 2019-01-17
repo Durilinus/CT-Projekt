@@ -26,7 +26,7 @@ public class Held extends Spielfigur{
     private static Sprung derSprung;
     private boolean berührtHindernis;
     private Steuerung control;
-    private boolean springt;
+    private boolean inDerLuft;
     
     GUI gui;
     
@@ -108,17 +108,9 @@ public class Held extends Spielfigur{
          derSprung = new Sprung(this);
          derSprung.start();
          System.out.println("gesprungen");
-         springt = true;
         }
     }
     
-    public boolean gibSpringt(){
-        return springt;
-    }
-    
-    public void setSpringt(boolean s){
-        springt = s;
-    }
     
     public int getSprungPos(){
         return Sprung.positionY;
@@ -148,7 +140,17 @@ public class Held extends Spielfigur{
         Graphics2D g2 = (Graphics2D) g;
         //g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
         
-    }    
+    }
+
+    public void pruefeHeldInDerLuft(){
+        
+        if(pY < STARTY && direktÜberHindernis() == false){
+            inDerLuft = true;
+        }else{
+            inDerLuft = false;
+        }
+        
+    }
 
     
 }
