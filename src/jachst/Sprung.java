@@ -75,7 +75,7 @@ public class Sprung extends Thread{
         if(hochpunktErreicht == true && positionY <= anfangY){
             positionY++;
             if(positionY == anfangY){
-            
+                
                 fertig = true;
                 
             }

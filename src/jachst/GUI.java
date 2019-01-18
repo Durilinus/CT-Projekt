@@ -167,8 +167,11 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     private void doLogic(){
         
         Vector<Sprite> trash = new Vector<Sprite>();
-        
-       for(Movable mov:actors){
+      
+      if(actors.size() > 3){
+          actors.remove(4);
+      } 
+        for(Movable mov:actors){
            mov.doLogic(delta);
            mov.move(delta);
            
@@ -182,7 +185,8 @@ public class GUI extends javax.swing.JPanel implements Runnable {
                    actors.remove(s);
                }
            }
-       } 
+       }
+      
     }
     
     
@@ -195,13 +199,17 @@ public class GUI extends javax.swing.JPanel implements Runnable {
             repaint();
             
             try{
-                Thread.sleep(10);
-            }catch(InterruptedException e){}
+                Thread.sleep(4);
+            }catch(InterruptedException e){
+                System.out.println("run error 143112");
+            }
             System.out.println("actors"+actors.size());
-            System.out.println("once"+Heldsteht.once);
+            //System.out.println("once"+Heldsteht.once);
         }        
     }
-    
+    public void endscreen(){
+        
+    }
     
     public void initAlleBilder(){
         

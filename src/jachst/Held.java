@@ -81,10 +81,17 @@ public class Held extends Spielfigur{
 
     protected void laufen() {
         if(pX >= 1000){  
-             pX = 0;
+            System.out.println("übergelaufEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEN"); 
+            pX = 0;
              control.incAktuelleWelt();
+             if(control.getAktuelleWelt() == 6){
+                 control.stop();
+             }
              control.generiereNächsteWelt();
              
+        }
+        if(pX <= 0){
+            pX = 0;
         }
         if(direktÜberHindernis() == false){
             derSprung.heldÜberHindernis = false;

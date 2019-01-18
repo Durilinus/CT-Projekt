@@ -31,7 +31,7 @@ public class Hindernis {
     
     
     public Hindernis(int pX, int pY, boolean töten){
-      radiusZuSeite = 50;
+      radiusZuSeite = 48;
       tödlich = töten;
       boxX = pX*50;
       boxY = pY*50;
