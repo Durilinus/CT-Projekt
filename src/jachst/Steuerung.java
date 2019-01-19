@@ -9,6 +9,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -36,11 +39,15 @@ public class Steuerung {
     private final int KASTENMENGEY = 10;
     private static final int hindernisPX[] = {100, 200, 300, 400};
     private static final int hindernisPY[] = {400, 400, 400, 400};
+    private File jump, death, win, step;
     Sprite sprite;
     int zaehler = 0;
-    
 
     Steuerung(GUI gui) {
+        jump = new File("sounds/jump.wav");
+        death = new File("sounds/death.wav");
+        win = new File("sounds/Win.wav");
+        step = new File("sounds/step.wav");
         dieGUI = gui;
         neuesSpiel();
     }
@@ -51,11 +58,11 @@ public class Steuerung {
         // generiereNächsteWelt();
         dieGUI.repaint();
         initFiguren();
-        
+
         t1 = new Timer(4, new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 bewegeAlleMobs(1, false);
-                if( zaehler == 100 ){
+                if (zaehler == 100) {
                     bogenschuetze.attacke();
                     zaehler = 0;
                 }
@@ -120,13 +127,43 @@ public class Steuerung {
 
     }
 
+    private void playSound(File f) {
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(f));
+            clip.start();
+        } catch (Exception e) {
+            System.out.println("audiofehler");
+        }
+
+    }
+
     public void stop() {
         t1.stop();
-        JOptionPane.showConfirmDialog(dieGUI, "Gewonnen, Glückwunsch!");
+        if (rolf.leben == true) {
+            playSound(win);
+            playSound(win);
+            JOptionPane.showMessageDialog(dieGUI, "GEWONNEN!!!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(dieGUI, "AUA, DAS TAT WEH", "GESTORBEN", JOptionPane.WARNING_MESSAGE);
+        }
+        System.exit(0);
+    }
+
+    public void playJump() {
+        playSound(jump);
+    }
+
+    public void playStep() {
+        playSound(step);
     }
 
     public void springenderRolf() {
         rolf.springe();
+        //  if (rolf.gibInDerLuft() == false) {
+        //      playSound(jump);
+        //  }
+
     }
 
     public void aendereHeldRichtung(int richtung) {
@@ -134,8 +171,7 @@ public class Steuerung {
     }
 
     public void bewegeAlleMobs(int richtungRechts, boolean springt) {
-        
-        
+
     }
 
     public void initKaesten() {
@@ -159,7 +195,6 @@ public class Steuerung {
         }
         System.out.println("X-Koordinate: " + rolf.pX);
         System.out.println("Y-Koordinate: " + rolf.pY);
-
     }
 
     public void zeichneAlles(Graphics g) {
@@ -283,12 +318,14 @@ public class Steuerung {
 
     public boolean pruefeHeldAnHindernis() {
         aktualisiereHitboxen();
-        
+
         for (int i = 0; i < hitboxHindernisse.length; i++) {
 
             if (hitboxHeld.intersects(hitboxHindernisse[i]) == true) {
-                if(welt[aktuelleWelt].level[i].gibTödlich() == true){
+                if (welt[aktuelleWelt].level[i].gibTödlich() == true) {
                     rolf.leben = false;
+                    playSound(death);
+                    stop();
                 }
                 System.out.println("erwiScht!!!!!!!!!!!!!!!!!!");
                 rolf.setBerührtHindernis(true);
@@ -304,10 +341,10 @@ public class Steuerung {
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         hitboxHindernisse = new Rectangle[welt[aktuelleWelt].level.length];
         for (int i = 0; i < hitboxHindernisse.length; i++) {
-            if (welt[aktuelleWelt].level[i].gibTödlich() == false){
-                    hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY(), welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite());
+            if (welt[aktuelleWelt].level[i].gibTödlich() == false) {
+                hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY(), welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite());
             } else {
-                    hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY() + 35, welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite()- 35);
+                hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY() + 35, welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite() - 35);
 
             }
         }
@@ -315,8 +352,12 @@ public class Steuerung {
 
     public void aenderHitboxenHindernis() {
         for (int i = 0; i < hitboxHindernisse.length; i++) {
-            hitboxHindernisse[i].setLocation(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY());
+            if (welt[aktuelleWelt].level[i].gibTödlich() == true) {
+                hitboxHindernisse[i].setBounds(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY() + 35, welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite() - 35);
+            } else {
+                hitboxHindernisse[i].setLocation(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY());
+            }
         }
-    }
 
+    }
 }

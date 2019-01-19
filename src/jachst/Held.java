@@ -17,9 +17,8 @@ import javax.swing.Timer;
  *
  * @author stefan.schaufler
  */
+public class Held extends Spielfigur {
 
-public class Held extends Spielfigur{
-    
     private final int STARTX = 0;
     private final int STARTY = 400;
     private Hindernis dieHindernisse[];
@@ -27,41 +26,44 @@ public class Held extends Spielfigur{
     private boolean berührtHindernis;
     private Steuerung control;
     private boolean inDerLuft;
-    
-    GUI gui;
-    
 
-    public Held(Steuerung strg, GUI G){
+    GUI gui;
+
+    public Held(Steuerung strg, GUI G) {
         super(G);
         control = strg;
         gui = G;
     }
     //@Override
     //protected void attacke() {
-       
+
     //}
-    public void fallen(){  
-        if(derSprung != null && derSprung.isAlive() == false && direktÜberHindernis() == false && STARTY != pY){
+    public void fallen() {
+        if (derSprung != null && derSprung.isAlive() == false && direktÜberHindernis() == false && STARTY != pY) {
             derSprung.positionY++;
         }
     }
-    public boolean getLeben(){
+
+    public boolean getLeben() {
         return leben;
     }
-    public void setBerührtHindernis(boolean i){
+
+    public void setBerührtHindernis(boolean i) {
         berührtHindernis = i;
-        
+
     }
-    
-    public boolean getBerührtHindernis(){
+
+    public boolean getBerührtHindernis() {
         return berührtHindernis;
     }
-    public void aktualisiereBerührtHindernis(){
+
+    public void aktualisiereBerührtHindernis() {
         control.pruefeHeldAnHindernis();
     }
-    public boolean direktÜberHindernis(){
+
+    public boolean direktÜberHindernis() {
         pY++;
-        if(control.pruefeHeldAnHindernis() == true){
+        if (control.pruefeHeldAnHindernis() == true) {
             pY--;
             Sprung.heldÜberHindernis = true;
             return true;
@@ -70,9 +72,10 @@ public class Held extends Spielfigur{
         Sprung.heldÜberHindernis = true;
         return false;
     }
-    public boolean direktUnterHindernis(){
+
+    public boolean direktUnterHindernis() {
         pY--;
-        if(control.pruefeHeldAnHindernis() == true){
+        if (control.pruefeHeldAnHindernis() == true) {
             pY++;
             Sprung.heldÜberHindernis = true;
             return true;
@@ -83,88 +86,94 @@ public class Held extends Spielfigur{
     }
 
     protected void laufen() {
-        if(pX >= 1000){  
-            System.out.println("übergelaufEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEN"); 
+        if (pX >= 1000) {
+            //     System.out.println("übergelaufEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEN"); 
             pX = 0;
-             control.incAktuelleWelt();
-             if(control.getAktuelleWelt() == 6){
-                 control.stop();
-             }
-             control.generiereNächsteWelt();
-             
+            control.incAktuelleWelt();
+            if (control.getAktuelleWelt() == 6) {
+                control.stop();
+
+            }
+            control.generiereNächsteWelt();
+
         }
-        if(pX <= 0){
+        if (pX <= 0) {
             pX = 0;
         }
-        if(direktÜberHindernis() == false){
+        if (direktÜberHindernis() == false) {
             derSprung.heldÜberHindernis = false;
         }
-        if(dieRichtung == RECHTS){
-            pX++; 
+        if (dieRichtung == RECHTS) {
+            pX++;
+            //if (inDerLuft == false) {
+            //    control.playStep();
+       
+             //}
         }
-        if(dieRichtung == LINKS){
+        if (dieRichtung == LINKS) {
             pX--;
+           // if (inDerLuft == false) {
+           //     control.playStep();
+           // }
         }
-        if(dieRichtung == STEHEN){
+        if (dieRichtung == STEHEN) {
             pX = pX;
         }
-      
+
     }
-    
-    
-    public void springe(){     
-        
-        if(derSprung == null || derSprung.isAlive() == false){
-         derSprung = new Sprung(this);
-         derSprung.start();
-         System.out.println("gesprungen");
+
+    public void springe() {
+
+        if (derSprung == null || derSprung.isAlive() == false) {
+            derSprung = new Sprung(this);
+            derSprung.start();
+            System.out.println("gesprungen");
+            control.playJump();
         }
     }
-    
-    
-    public int getSprungPos(){
+
+    public int getSprungPos() {
         return Sprung.positionY;
     }
-    
-    public void setStartPos(){
-       pX = STARTX;
-       pY = STARTY;
-       dieRichtung = 0;
+
+    public void setStartPos() {
+        pX = STARTX;
+        pY = STARTY;
+        dieRichtung = 0;
     }
     //@Override
-    
 
     //@Override
     public void berechneSpiel(long delta) {
-        
+
     }
 
     //@Override
     public void gibAktuellesBild() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     //@Override
     public void zeichne(Graphics g, int breite, int hoehe) {
-      //  g.drawRect(pX, pY, 5, 10);
-        
+        //  g.drawRect(pX, pY, 5, 10);
+
         Graphics2D g2 = (Graphics2D) g;
         //g2.drawImage(alleBilder[aktBild],(int)pX , (int)pY, breite , hoehe ,null);
-        
+
     }
 
-    public void pruefeHeldInDerLuft(){
-        
-        if(pY < STARTY && direktÜberHindernis() == false){
+    public void pruefeHeldInDerLuft() {
+
+        if (pY < STARTY && direktÜberHindernis() == false) {
             inDerLuft = true;
-        }else{
+        } else {
             inDerLuft = false;
         }
-        
+
     }
-    
-    public boolean gibInDerLuft(){
+
+    public boolean gibInDerLuft() {
         return inDerLuft;
     }
 
-    
 }
