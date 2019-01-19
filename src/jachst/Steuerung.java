@@ -23,7 +23,7 @@ public class Steuerung {
     private Flugmobs dieFlugMobs[];
     private Held rolf;
     private GUI dieGUI;
-    private Bodenmobs dieBodenMobs[];
+    private Bogenschuetzen dieBodenMobs[];
     private Timer t1;
     private Rectangle hitboxenBodenMobs[];
     private Rectangle hitboxenFlugMobs[];
@@ -163,91 +163,93 @@ public class Steuerung {
     }
 
     public void zeichneAlles(Graphics g) {
-        
-           zeichneHintegrundWelt(g);
-     
+
+        zeichneHintegrundWelt(g);
+
         for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
             welt[aktuelleWelt].level[i].zeichne(g);
         }
 
         //System.out.println("zeichnet");
         // g.drawRect(rolf.pX, rolf.pY, kastenHoehe, kastenHoehe);
-        if (rolf.gibInDerLuft() == false) {
+        if (rolf.getLeben() == true) {
+            if (rolf.gibInDerLuft() == false) {
 
-            switch (rolf.getRichtung()) {
+                switch (rolf.getRichtung()) {
 
-                case 0:
-                    dieGUI.trashHeldlinks();
-                    dieGUI.trashHeldrechts();
-                    dieGUI.trashHeldspringtlinks();
-                    dieGUI.trashHeldspringtrechts();
-                    if (dieGUI.Heldsteht.once == false) {
-                        dieGUI.addHeldsteht();
-                    }
-                    dieGUI.Heldsteht.drawObjects(g);
-                    break;
+                    case 0:
+                        dieGUI.trashHeldlinks();
+                        dieGUI.trashHeldrechts();
+                        dieGUI.trashHeldspringtlinks();
+                        dieGUI.trashHeldspringtrechts();
+                        if (dieGUI.Heldsteht.once == false) {
+                            dieGUI.addHeldsteht();
+                        }
+                        dieGUI.Heldsteht.drawObjects(g);
+                        break;
 
-                case 1:
-                    dieGUI.trashHeldsteht();
-                    dieGUI.trashHeldlinks();
-                    dieGUI.trashHeldspringtlinks();
-                    dieGUI.trashHeldspringtrechts();
-                    if (dieGUI.Heldrechts.once == false) {
-                        dieGUI.addHeldrechts();
-                    }
-                    dieGUI.Heldrechts.drawObjects(g);
-                    break;
+                    case 1:
+                        dieGUI.trashHeldsteht();
+                        dieGUI.trashHeldlinks();
+                        dieGUI.trashHeldspringtlinks();
+                        dieGUI.trashHeldspringtrechts();
+                        if (dieGUI.Heldrechts.once == false) {
+                            dieGUI.addHeldrechts();
+                        }
+                        dieGUI.Heldrechts.drawObjects(g);
+                        break;
 
-                case 2:
-                    dieGUI.trashHeldrechts();
-                    dieGUI.trashHeldsteht();
-                    dieGUI.trashHeldspringtlinks();
-                    dieGUI.trashHeldspringtrechts();
-                    if (dieGUI.Heldlinks.once == false) {
-                        dieGUI.addHeldlinks();
-                    }
-                    dieGUI.Heldlinks.drawObjects(g);
-                    break;
+                    case 2:
+                        dieGUI.trashHeldrechts();
+                        dieGUI.trashHeldsteht();
+                        dieGUI.trashHeldspringtlinks();
+                        dieGUI.trashHeldspringtrechts();
+                        if (dieGUI.Heldlinks.once == false) {
+                            dieGUI.addHeldlinks();
+                        }
+                        dieGUI.Heldlinks.drawObjects(g);
+                        break;
+
+                }
+            } else {
+                switch (rolf.getRichtung()) {
+
+                    case 0:
+                        dieGUI.trashHeldlinks();
+                        dieGUI.trashHeldrechts();
+                        dieGUI.trashHeldsteht();
+                        dieGUI.trashHeldspringtlinks();
+                        if (dieGUI.Heldspringtrechts.once == false) {
+                            dieGUI.addHeldspringtrechts();
+                        }
+                        dieGUI.Heldspringtrechts.drawObjects(g);
+                        break;
+
+                    case 1:
+                        dieGUI.trashHeldsteht();
+                        dieGUI.trashHeldlinks();
+                        dieGUI.trashHeldrechts();
+                        dieGUI.trashHeldspringtlinks();
+                        if (dieGUI.Heldspringtrechts.once == false) {
+                            dieGUI.addHeldspringtrechts();
+                        }
+                        dieGUI.Heldspringtrechts.drawObjects(g);
+                        break;
+
+                    case 2:
+                        dieGUI.trashHeldrechts();
+                        dieGUI.trashHeldsteht();
+                        dieGUI.trashHeldlinks();
+                        dieGUI.trashHeldspringtrechts();
+                        if (dieGUI.Heldspringtlinks.once == false) {
+                            dieGUI.addHeldspringtlinks();
+                        }
+                        dieGUI.Heldspringtlinks.drawObjects(g);
+                        break;
+
+                }
 
             }
-        } else {
-            switch (rolf.getRichtung()) {
-
-                case 0:
-                    dieGUI.trashHeldlinks();
-                    dieGUI.trashHeldrechts();
-                    dieGUI.trashHeldsteht();
-                    dieGUI.trashHeldspringtlinks();
-                    if (dieGUI.Heldspringtrechts.once == false) {
-                        dieGUI.addHeldspringtrechts();
-                    }
-                    dieGUI.Heldspringtrechts.drawObjects(g);
-                    break;
-
-                case 1:
-                    dieGUI.trashHeldsteht();
-                    dieGUI.trashHeldlinks();
-                    dieGUI.trashHeldrechts();
-                    dieGUI.trashHeldspringtlinks();
-                    if (dieGUI.Heldspringtrechts.once == false) {
-                        dieGUI.addHeldspringtrechts();
-                    }
-                    dieGUI.Heldspringtrechts.drawObjects(g);
-                    break;
-
-                case 2:
-                    dieGUI.trashHeldrechts();
-                    dieGUI.trashHeldsteht();
-                    dieGUI.trashHeldlinks();
-                    dieGUI.trashHeldspringtrechts();
-                    if (dieGUI.Heldspringtlinks.once == false) {
-                        dieGUI.addHeldspringtlinks();
-                    }
-                    dieGUI.Heldspringtlinks.drawObjects(g);
-                    break;
-
-            }
-
         }
 
     }
@@ -264,9 +266,9 @@ public class Steuerung {
         for (int i = 0; i < dieFlugMobs.length; i++) {
             dieFlugMobs[i] = new Flugmobs(dieGUI);
         }
-        dieBodenMobs = new Bodenmobs[10];
+        dieBodenMobs = new Bogenschuetzen[10];
         for (int i = 0; i < dieBodenMobs.length; i++) {
-            dieBodenMobs[i] = new Bodenmobs(dieGUI);
+            dieBodenMobs[i] = new Bogenschuetzen(dieGUI);
         }
     }
 
@@ -284,10 +286,13 @@ public class Steuerung {
 
     public boolean pruefeHeldAnHindernis() {
         aktualisiereHitboxen();
-        //System.out.println("aktualisiert hitboxen");
+        
         for (int i = 0; i < hitboxHindernisse.length; i++) {
 
             if (hitboxHeld.intersects(hitboxHindernisse[i]) == true) {
+                if(welt[aktuelleWelt].level[i].gibTödlich() == true){
+                    rolf.leben = false;
+                }
                 System.out.println("erwiScht!!!!!!!!!!!!!!!!!!");
                 rolf.setBerührtHindernis(true);
 
@@ -302,7 +307,12 @@ public class Steuerung {
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
         hitboxHindernisse = new Rectangle[welt[aktuelleWelt].level.length];
         for (int i = 0; i < hitboxHindernisse.length; i++) {
-            hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY(), welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite());
+            if (welt[aktuelleWelt].level[i].gibTödlich() == false){
+                    hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY(), welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite());
+            } else {
+                    hitboxHindernisse[i] = new Rectangle(welt[aktuelleWelt].level[i].getX(), welt[aktuelleWelt].level[i].getY() + 35, welt[aktuelleWelt].level[i].getRadZuSeite(), welt[aktuelleWelt].level[i].getRadZuSeite()- 35);
+
+            }
         }
     }
 

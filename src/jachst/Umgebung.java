@@ -47,10 +47,16 @@ public class Umgebung /*extends Sprite*/ {
       //  for (int i = 0; i < level.length; i++) {
             for (int y = 0; y < 10; y++) {
                 for (int x = 0; x < 20; x++) {
-                    if (l.gibMap(x, y) == 1) {
+                    if (l.gibMap(x, y) == 1) { 
                         level[i] = new Hindernis(x,y,false);  
                         i++;
                         System.out.println(i+"NEUES HINDERNIS: "+ x + ","+ y);
+                    }
+                    if(l.gibMap(x, y) == 2){
+                        level[i] = new Hindernis(x,y,true);
+                        i++;
+                        System.out.println(i+"NEUES HINDERNIS: "+ x + ","+ y);
+                        
                     }
                 }
             }

@@ -20,10 +20,18 @@ public class Hindernis {
     private boolean tödlich;
     private int boxX, boxY;
     private int radiusZuSeite;
-    private static BufferedImage image;
+    private static BufferedImage imageHindernis;
+    private static BufferedImage imageTödlich;
     static {
         try {
-            image = ImageIO.read(new File("bilder/Hindernis.png"));
+            imageHindernis = ImageIO.read(new File("bilder/Hindernis.png"));
+        } catch (IOException e) {
+            System.out.println("Es konnte kein Bild gefunden werden");
+        }
+    }
+    static {
+        try {
+            imageTödlich = ImageIO.read(new File("bilder/HindernisTödlich.png"));
         } catch (IOException e) {
             System.out.println("Es konnte kein Bild gefunden werden");
         }
@@ -31,8 +39,9 @@ public class Hindernis {
     
     
     public Hindernis(int pX, int pY, boolean töten){
-      radiusZuSeite = 48;
       tödlich = töten;
+      radiusZuSeite = 48;
+      
       boxX = pX*50;
       boxY = pY*50;
     }
@@ -42,7 +51,12 @@ public class Hindernis {
     }
     public void zeichne(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(image, boxX, boxY, radiusZuSeite, radiusZuSeite, null);
+        if(tödlich == false){
+           g2.drawImage(imageHindernis, boxX, boxY, radiusZuSeite, radiusZuSeite, null);
+        }
+        else {
+            g2.drawImage(imageTödlich, boxX, boxY, radiusZuSeite, radiusZuSeite, null);
+        }
     }
     public int getX(){
         return boxX;

@@ -45,6 +45,9 @@ public class Held extends Spielfigur{
             derSprung.positionY++;
         }
     }
+    public boolean getLeben(){
+        return leben;
+    }
     public void setBerührtHindernis(boolean i){
         berührtHindernis = i;
         

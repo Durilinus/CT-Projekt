@@ -11,15 +11,47 @@ import java.awt.Graphics;
  *
  * @author stefan.schaufler
  */
-public class Bodenmobs extends Spielfigur {  
+public class Bogenschuetzen extends Spielfigur {  
     
-    public Bodenmobs(GUI G){
+    private final int radiusAttacke = 150;
+    private int abstandXzuHeld;
+    private int abstandYzuHeld;
+    private int absoluterAbstand;
+    private static Projektil kugel;
+    private Held derHeld;
+    
+    public Bogenschuetzen(GUI G, Held heldi){
        super (G); 
+       derHeld = heldi;
     }
     //@Override
     protected void attacke() {
         
+        if( radiusAttacke >= absoluterAbstand ) {
+            kugel = new Projektil(pX,pY);
+        }
     }
+    private void berechneAbstaende(){
+        abstandXzuHeld = Math.abs(this.pX - derHeld.pX);   //werden zu unterschiedlichen Zeitpunkten berechnet
+        abstandYzuHeld = Math.abs(derHeld.pY - this.pY);
+        absoluterAbstand = (int)Math.sqrt((abstandXzuHeld*abstandXzuHeld) + (abstandYzuHeld*abstandYzuHeld));
+    }
+    public void bewegeProjektil(){
+        if(Math.abs(this.pX - derHeld.pX) > Math.abs(derHeld.pY - this.pY)){
+            if(Math.abs(this.pX - derHeld.pX) > 0){
+                dieRichtung = 3;
+            } else {
+                dieRichtung = 1;
+            }
+        } else {
+            if(Math.abs(derHeld.pY - this.pY) > 0){
+                dieRichtung = 2;
+            } else {
+                dieRichtung = 4;
+            }
+          }
+    }
+    
 
     //@Override
     protected void laufen() {
