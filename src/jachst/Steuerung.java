@@ -23,7 +23,7 @@ public class Steuerung {
     private Flugmobs dieFlugMobs[];
     private Held rolf;
     private GUI dieGUI;
-    private Bogenschuetzen dieBodenMobs[];
+    private Bogenschuetzen bogenschuetze;
     private Timer t1;
     private Rectangle hitboxenBodenMobs[];
     private Rectangle hitboxenFlugMobs[];
@@ -37,7 +37,8 @@ public class Steuerung {
     private static final int hindernisPX[] = {100, 200, 300, 400};
     private static final int hindernisPY[] = {400, 400, 400, 400};
     Sprite sprite;
-    private JachstFrame jFrame;
+    int zaehler = 0;
+    
 
     Steuerung(GUI gui) {
         dieGUI = gui;
@@ -50,13 +51,16 @@ public class Steuerung {
         // generiereNächsteWelt();
         dieGUI.repaint();
         initFiguren();
-
+        
         t1 = new Timer(4, new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 bewegeAlleMobs(1, false);
-
+                if( zaehler == 100 ){
+                    bogenschuetze.attacke();
+                    zaehler = 0;
+                }
                 bewegeHeld();
-
+                zaehler++;
                 rolf.pY = rolf.getSprungPos();
                 rolf.fallen();
                 dieGUI.repaint();
@@ -130,12 +134,8 @@ public class Steuerung {
     }
 
     public void bewegeAlleMobs(int richtungRechts, boolean springt) {
-        for (int i = 0; i < dieFlugMobs.length; i++) {
-            dieFlugMobs[i].laufen();
-        }
-        for (int i = 0; i < dieBodenMobs.length; i++) {
-            dieBodenMobs[i].laufen();
-        }
+        
+        
     }
 
     public void initKaesten() {
@@ -266,10 +266,7 @@ public class Steuerung {
         for (int i = 0; i < dieFlugMobs.length; i++) {
             dieFlugMobs[i] = new Flugmobs(dieGUI);
         }
-        dieBodenMobs = new Bogenschuetzen[10];
-        for (int i = 0; i < dieBodenMobs.length; i++) {
-            dieBodenMobs[i] = new Bogenschuetzen(dieGUI);
-        }
+        bogenschuetze = new Bogenschuetzen(dieGUI, rolf);
     }
 
     public void aktualisiereHitboxen() {

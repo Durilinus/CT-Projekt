@@ -23,10 +23,12 @@ public class Bogenschuetzen extends Spielfigur {
     public Bogenschuetzen(GUI G, Held heldi){
        super (G); 
        derHeld = heldi;
+       pX = 60;
+       pY = 440;
     }
     //@Override
     protected void attacke() {
-        
+        berechneAbstaende();
         if( radiusAttacke >= absoluterAbstand ) {
             kugel = new Projektil(pX,pY);
         }
@@ -37,17 +39,17 @@ public class Bogenschuetzen extends Spielfigur {
         absoluterAbstand = (int)Math.sqrt((abstandXzuHeld*abstandXzuHeld) + (abstandYzuHeld*abstandYzuHeld));
     }
     public void bewegeProjektil(){
-        if(Math.abs(this.pX - derHeld.pX) > Math.abs(derHeld.pY - this.pY)){
-            if(Math.abs(this.pX - derHeld.pX) > 0){
-                dieRichtung = 3;
+        if(abstandXzuHeld > abstandYzuHeld){
+            if(abstandXzuHeld > 0){
+                kugel.posX--;
             } else {
-                dieRichtung = 1;
+                kugel.posX++;
             }
         } else {
-            if(Math.abs(derHeld.pY - this.pY) > 0){
-                dieRichtung = 2;
+            if(abstandYzuHeld > 0){
+                kugel.posY--;
             } else {
-                dieRichtung = 4;
+                kugel.posY++;
             }
           }
     }

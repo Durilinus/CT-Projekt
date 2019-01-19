@@ -10,9 +10,9 @@ package jachst;
  * @author chris
  */
 public class Projektil {
-    private static int posX;
-    private static int posY;
-    private boolean exist;
+    protected static int posX;
+    protected static int posY;
+    private boolean exist = true;
     
     public Projektil(int startX, int startY){
         exist = true;
