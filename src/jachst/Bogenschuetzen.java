@@ -23,15 +23,17 @@ public class Bogenschuetzen {
     private Rectangle hitboxProjektil;
     private int pX;
     private int pY;
-    private GUI gui = new GUI();
+    private GUI gui;
+    private boolean schiesst;
     
-    public Bogenschuetzen( Held heldi){
+    public Bogenschuetzen( Held heldi,GUI g){
        
        
        this.pX = 500;
        this.pY = 400;
        
        derHeld = heldi;
+       gui = g;
        
     }
     public int getX(){
@@ -70,6 +72,9 @@ public class Bogenschuetzen {
         if( (radiusAttacke >= absoluterAbstand) && (kugel == null || kugel.isAlive() == false)) {
             kugel = new Projektil(pX,pY,derHeld.pX,derHeld.pY);
             kugel.start();
+            schiesst = true;
+        }else{
+            schiesst = false;
         }
     }
     private void berechneAbstaende(){
@@ -80,6 +85,10 @@ public class Bogenschuetzen {
     //@Override
     protected void laufen() {
         pX++;
+    }
+    
+    public boolean gibSchiesst(){
+        return schiesst;
     }
 
     public void zeichneSchiesst(){

@@ -300,7 +300,12 @@ public class Steuerung {
 
             }
         }
-        g.drawRect(bogenschuetze.getX(), bogenschuetze.getY(), 50, 50);
+        
+        if(bogenschuetze.gibSchiesst() == true){
+            bogenschuetze.zeichneSchiesst();
+        }else{
+            bogenschuetze.zeichneLaedtnach();
+        }
 
     }
 
@@ -309,7 +314,7 @@ public class Steuerung {
         // initHindernisse();
         rolf = new Held(this, dieGUI);
         rolf.setStartPos();
-        bogenschuetze = new Bogenschuetzen(rolf);
+        bogenschuetze = new Bogenschuetzen(rolf,dieGUI);
         initHitboxen();
 
         dieFlugMobs = new Flugmobs[10];

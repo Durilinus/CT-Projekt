@@ -70,6 +70,9 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         initAlleBilder();            
     }
     
+    Held H = new Held(strg,this);
+    Bogenschuetzen Gegner = new Bogenschuetzen(H,this);
+    
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         strg.initKaesten();
