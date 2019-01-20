@@ -6,31 +6,70 @@
 package jachst;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
  * @author stefan.schaufler
  */
-public class Bogenschuetzen extends Spielfigur {  
+public class Bogenschuetzen {  
     
-    private final int radiusAttacke = 150;
+    private final int radiusAttacke = 300;
     private int abstandXzuHeld;
     private int abstandYzuHeld;
     private int absoluterAbstand;
     private static Projektil kugel;
     private Held derHeld;
+    private Rectangle hitboxProjektil;
+    private int pX;
+    private int pY;
     
-    public Bogenschuetzen(GUI G, Held heldi){
-       super (G); 
+    public Bogenschuetzen( Held heldi){
+       
+       
+       this.pX = 500;
+       this.pY = 400;
+       
        derHeld = heldi;
-       pX = 60;
-       pY = 440;
+       
+    }
+    public int getX(){
+        return pX;
+    }
+    public int getY(){
+        return pY;
+    }
+    public boolean kugelIsAlive(){
+        if(kugel != null){
+            return kugel.isAlive();
+        }
+        return false;
+    }
+    public boolean kugelExist(){
+        if(kugel == null){
+            return false;
+        }
+        return true;
+    }
+    public int getProjektilX(){
+    return kugel.getX();
+    }
+    public int getProjektilY(){
+        return kugel.getY();
+    }
+    public static Rectangle gibHitboxProjektil(){
+        return kugel.gibHitbox();
+    }
+    public static boolean pruefeKugelAlive(){
+        return kugel.isAlive();
     }
     //@Override
     protected void attacke() {
         berechneAbstaende();
-        if( radiusAttacke >= absoluterAbstand ) {
-            kugel = new Projektil(pX,pY);
+        
+        if( (radiusAttacke >= absoluterAbstand) && (kugel == null || kugel.isAlive() == false)) {
+            kugel = new Projektil(pX,pY,derHeld.pX,derHeld.pY);
+            kugel.start();
         }
     }
     private void berechneAbstaende(){
@@ -38,23 +77,6 @@ public class Bogenschuetzen extends Spielfigur {
         abstandYzuHeld = Math.abs(derHeld.pY - this.pY);
         absoluterAbstand = (int)Math.sqrt((abstandXzuHeld*abstandXzuHeld) + (abstandYzuHeld*abstandYzuHeld));
     }
-    public void bewegeProjektil(){
-        if(abstandXzuHeld > abstandYzuHeld){
-            if(abstandXzuHeld > 0){
-                kugel.posX--;
-            } else {
-                kugel.posX++;
-            }
-        } else {
-            if(abstandYzuHeld > 0){
-                kugel.posY--;
-            } else {
-                kugel.posY++;
-            }
-          }
-    }
-    
-
     //@Override
     protected void laufen() {
         pX++;

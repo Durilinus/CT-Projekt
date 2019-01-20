@@ -28,7 +28,7 @@ public class Steuerung {
     private GUI dieGUI;
     private Bogenschuetzen bogenschuetze;
     private Timer t1;
-    private Rectangle hitboxenBodenMobs[];
+    private Rectangle hitboxProjektil;
     private Rectangle hitboxenFlugMobs[];
     private Rectangle hitboxHeld;
     private Rectangle hitboxHindernisse[];
@@ -41,7 +41,8 @@ public class Steuerung {
     private static final int hindernisPY[] = {400, 400, 400, 400};
     private File jump, death, win, step;
     Sprite sprite;
-    int zaehler = 0;
+    int zaehler;
+    private Projektil kugel;
 
     Steuerung(GUI gui) {
         jump = new File("sounds/jump.wav");
@@ -58,15 +59,17 @@ public class Steuerung {
         // generiereNächsteWelt();
         dieGUI.repaint();
         initFiguren();
-
+        zaehler = 0;
         t1 = new Timer(4, new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 bewegeAlleMobs(1, false);
-                if (zaehler == 100) {
+                if (zaehler == 400) {
                     bogenschuetze.attacke();
+                    
                     zaehler = 0;
                 }
                 bewegeHeld();
+                pruefeGetroffen();
                 zaehler++;
                 rolf.pY = rolf.getSprungPos();
                 rolf.fallen();
@@ -82,7 +85,16 @@ public class Steuerung {
     public void zeichneHintegrundWelt(Graphics g) {
         welt[aktuelleWelt].zeichneHintergrund(g);
     }
-
+    private void pruefeGetroffen(){
+        
+        aktualisiereHitboxen();
+        if(hitboxHeld.intersects(hitboxProjektil) == true){
+            
+            rolf.leben = false; 
+            
+        }
+    }
+    
     public int getAktuelleWelt() {
         return aktuelleWelt;
     }
@@ -204,6 +216,10 @@ public class Steuerung {
         for (int i = 0; i < welt[aktuelleWelt].level.length; i++) {
             welt[aktuelleWelt].level[i].zeichne(g);
         }
+        if(bogenschuetze.kugelExist() == true && bogenschuetze.kugelIsAlive() == true){
+            g.drawRect(bogenschuetze.getProjektilX(), bogenschuetze.getProjektilY(), 10, 10);
+        }
+        
 
         //System.out.println("zeichnet");
         // g.drawRect(rolf.pX, rolf.pY, kastenHoehe, kastenHoehe);
@@ -286,6 +302,7 @@ public class Steuerung {
 
             }
         }
+        g.drawRect(bogenschuetze.getX(), bogenschuetze.getY(), 50, 50);
 
     }
 
@@ -294,18 +311,21 @@ public class Steuerung {
         // initHindernisse();
         rolf = new Held(this, dieGUI);
         rolf.setStartPos();
-
+        bogenschuetze = new Bogenschuetzen(rolf);
         initHitboxen();
 
         dieFlugMobs = new Flugmobs[10];
         for (int i = 0; i < dieFlugMobs.length; i++) {
             dieFlugMobs[i] = new Flugmobs(dieGUI);
         }
-        bogenschuetze = new Bogenschuetzen(dieGUI, rolf);
+        
     }
 
     public void aktualisiereHitboxen() {
         hitboxHeld.setLocation((int) rolf.pX, (int) rolf.pY);
+        if(bogenschuetze.kugelIsAlive() == true){
+            hitboxProjektil = bogenschuetze.gibHitboxProjektil();
+        }
     }
 
     public int getHeldX() {
@@ -315,6 +335,7 @@ public class Steuerung {
     public int getHeldY() {
         return rolf.pY;
     }
+   
 
     public boolean pruefeHeldAnHindernis() {
         aktualisiereHitboxen();
@@ -339,6 +360,7 @@ public class Steuerung {
 
     public void initHitboxen() {
         hitboxHeld = new Rectangle(rolf.pX, rolf.pY, kastenBreite, kastenHoehe);
+        hitboxProjektil = new Rectangle(0,0,10,10);
         hitboxHindernisse = new Rectangle[welt[aktuelleWelt].level.length];
         for (int i = 0; i < hitboxHindernisse.length; i++) {
             if (welt[aktuelleWelt].level[i].gibTödlich() == false) {
