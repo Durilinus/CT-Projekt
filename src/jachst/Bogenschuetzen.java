@@ -74,7 +74,8 @@ public class Bogenschuetzen {
             kugel.start();
             schiesst = true;
             derHeld.control.playPew();
-        }else{
+        }
+        if(kugelExist() == false){
             schiesst = false;
         }
     }
@@ -105,10 +106,10 @@ public class Bogenschuetzen {
             if(gui.Gegnerschiesstrechts.once == false){
                gui.addGegnerschiesstrechts();
             }
-        }      
+        }  
     }
     
-    public void zeichneLaedtnach(){
+    public void zeichneLaedtnach(Graphics g){
         gui.trashGegnerschiesstlinks();
         gui.trashGegnerschiesstrechts();
         
@@ -116,14 +117,15 @@ public class Bogenschuetzen {
             gui.trashGegnerlaedtnachrechts();
             if(gui.Gegnerlaedtnachlinks.once == false){
                 gui.addGegnerlaedtnachlinks();
+                gui.Gegnerlaedtnachlinks.drawObjects(g);
             }
         }else{
             gui.trashGegnerlaedtnachlinks();
             if(gui.Gegnerlaedtnachrechts.once == false){
                 gui.addGegnerlaedtnachrechts();
+                gui.Gegnerlaedtnachrechts.drawObjects(g);
             }          
         }
-        
     }
 
     

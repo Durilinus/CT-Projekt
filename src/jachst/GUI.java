@@ -248,11 +248,11 @@ public class GUI extends javax.swing.JPanel implements Runnable {
       if(actors.size() > 3){
           actors.remove(4);
       } 
-        for(Movable mov:actors){
-           mov.doLogic(delta);
-           mov.move(delta);
+        for(int i = 0; i < actors.size();i++){
+           actors.get(i).doLogic(delta);
+           actors.get(i).move(delta);
            
-           Sprite check = (Sprite)mov;
+           Sprite check = (Sprite)actors.get(i);
            if(check.remove){
               trash.add(check); 
            }
@@ -262,7 +262,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
                    actors.remove(s);
                }
            }
-       }
+        }        
       
     }
     
@@ -322,6 +322,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
            Projektil = ImageIO.read(new File("bilder/Projektil.png"));
         }catch(IOException ioe){ioe.printStackTrace();}
         
+        
         if(!this.once){
             this.once = true;
             t = new Thread(this);
@@ -330,100 +331,100 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         
     }
     
-    public void trashHeldsteht(){
+    public synchronized void trashHeldsteht(){
         Heldsteht.remove = true;
         Heldsteht.once = false;
     }
     
-    public void trashHeldlinks(){
+    public synchronized void trashHeldlinks(){
         Heldlinks.remove = true;
         Heldlinks.once = false;
     }
     
-    public void trashHeldrechts(){
+    public synchronized void trashHeldrechts(){
         Heldrechts.remove = true;
         Heldrechts.once = false;
     }
     
-    public void trashHeldspringtlinks(){
+    public synchronized void trashHeldspringtlinks(){
         Heldspringtlinks.remove = true;
         Heldspringtlinks.once = false;
     }
     
-    public void trashHeldspringtrechts(){
+    public synchronized void trashHeldspringtrechts(){
         Heldspringtrechts.remove = true;
         Heldspringtrechts.once = false;
     }
     
-    public void trashGegnerschiesstlinks(){
+    public synchronized void trashGegnerschiesstlinks(){
         Gegnerschiesstlinks.remove = true;
         Gegnerschiesstlinks.once = false;
     }
     
-    public void trashGegnerschiesstrechts(){
+    public synchronized void trashGegnerschiesstrechts(){
         Gegnerschiesstrechts.remove = true;
         Gegnerschiesstrechts.once = false;
     }
     
-    public void trashGegnerlaedtnachlinks(){
+    public synchronized void trashGegnerlaedtnachlinks(){
         Gegnerlaedtnachlinks.remove = true;
         Gegnerlaedtnachlinks.once = false;
     }
     
-    public void trashGegnerlaedtnachrechts(){
+    public synchronized void trashGegnerlaedtnachrechts(){
         Gegnerlaedtnachrechts.remove = true;
         Gegnerlaedtnachrechts.once = false;
     }
     
-    public void addHeldsteht(){
+    public synchronized void addHeldsteht(){
         Heldsteht = new Sprite(heldsteht,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         actors.add(Heldsteht); 
         Heldsteht.once=true;
     }
     
-    public void addHeldlinks(){
+    public synchronized void addHeldlinks(){
         Heldlinks = new Sprite(heldlinks,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         actors.add(Heldlinks);
         Heldlinks.once = true;
     }
     
-    public void addHeldrechts(){
+    public synchronized void addHeldrechts(){
         Heldrechts = new Sprite(heldrechts,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         actors.add(Heldrechts);
         Heldrechts.once=true;
     }
     
-    public void addHeldspringtlinks(){
+    public synchronized void addHeldspringtlinks(){
         Heldspringtlinks = new Sprite(heldspringtlinks,strg.getHeldX(),strg.getHeldY(),0,this,strg);
         actors.add(Heldspringtlinks);
         Heldspringtlinks.once=true;
     }
     
-    public void addHeldspringtrechts(){
+    public synchronized void addHeldspringtrechts(){
         Heldspringtrechts = new Sprite(heldspringtrechts,strg.getHeldX(),strg.getHeldY(),0,this,strg);
         actors.add(Heldspringtrechts);
         Heldspringtrechts.once=true;
     }
     
-    public void addGegnerschiesstlinks(){
+    public synchronized void addGegnerschiesstlinks(){
         Gegnerschiesstlinks = new Sprite(gegnerschiesstlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);     
         actors.add(Gegnerschiesstlinks);
         Gegnerschiesstlinks.once=true;
     }
     
-    public void addGegnerschiesstrechts(){
+    public synchronized void addGegnerschiesstrechts(){
         Gegnerschiesstrechts = new Sprite(gegnerschiesstrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
         actors.add(Gegnerschiesstrechts);
         Gegnerschiesstrechts.once=true;
     }
     
-    public void addGegnerlaedtnachlinks(){
+    public synchronized void addGegnerlaedtnachlinks(){
         Gegnerlaedtnachrechts = new Sprite(gegnerlaedtnachlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
         actors.add(Gegnerlaedtnachlinks);
         Gegnerlaedtnachlinks.once=true;
     }
     
-    public void addGegnerlaedtnachrechts(){
+    public synchronized void addGegnerlaedtnachrechts(){
         Gegnerlaedtnachrechts = new Sprite(gegnerlaedtnachrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
         actors.add(Gegnerlaedtnachrechts);
         Gegnerlaedtnachrechts.once=true;

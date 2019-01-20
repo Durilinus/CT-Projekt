@@ -307,17 +307,17 @@ public class Steuerung {
                         }
                         dieGUI.Heldspringtlinks.drawObjects(g);
                         break;
-
                 }
 
             }
-        }
-        
-        if(bogenschuetze.gibSchiesst() == true){
-            bogenschuetze.zeichneSchiesst();
-        }else{
-            bogenschuetze.zeichneLaedtnach();
-        }
+            /*if(bogenschuetze.gibSchiesst() == true){
+                bogenschuetze.zeichneSchiesst();
+                }else{
+                    bogenschuetze.zeichneLaedtnach(g);
+            }*/
+            g.drawRect(bogenschuetze.getX(), bogenschuetze.getY(), 50, 50);
+            
+            }
 
     }
 
