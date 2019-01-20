@@ -26,7 +26,7 @@ public class Steuerung {
     private Flugmobs dieFlugMobs[];
     private Held rolf;
     private GUI dieGUI;
-    private Bogenschuetzen bogenschuetze;
+    public Bogenschuetzen bogenschuetze;
     private Timer t1;
     private Rectangle hitboxProjektil;
     private Rectangle hitboxenFlugMobs[];
@@ -217,12 +217,10 @@ public class Steuerung {
             welt[aktuelleWelt].level[i].zeichne(g);
         }
         if(bogenschuetze.kugelExist() == true && bogenschuetze.kugelIsAlive() == true){
-            g.drawRect(bogenschuetze.getProjektilX(), bogenschuetze.getProjektilY(), 10, 10);
+            dieGUI.zeichneProjektil(g);
         }
         
 
-        //System.out.println("zeichnet");
-        // g.drawRect(rolf.pX, rolf.pY, kastenHoehe, kastenHoehe);
         if (rolf.getLeben() == true) {
             if (rolf.gibInDerLuft() == false) {
 

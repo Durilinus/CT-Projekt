@@ -23,6 +23,7 @@ public class Bogenschuetzen {
     private Rectangle hitboxProjektil;
     private int pX;
     private int pY;
+    private GUI gui = new GUI();
     
     public Bogenschuetzen( Held heldi){
        
@@ -65,8 +66,7 @@ public class Bogenschuetzen {
     }
     //@Override
     protected void attacke() {
-        berechneAbstaende();
-        
+        berechneAbstaende();    
         if( (radiusAttacke >= absoluterAbstand) && (kugel == null || kugel.isAlive() == false)) {
             kugel = new Projektil(pX,pY,derHeld.pX,derHeld.pY);
             kugel.start();
@@ -82,29 +82,39 @@ public class Bogenschuetzen {
         pX++;
     }
 
-    //@Override
-    public void berechneBilder(long delta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void zeichneSchiesst(){
+        gui.trashGegnerlaedtnachlinks();
+        gui.trashGegnerlaedtnachrechts();
+        if(pX > derHeld.pX){
+           gui.trashGegnerschiesstrechts();
+           if(gui.Gegnerschiesstlinks.once == false){
+               gui.addGegnerschiesstlinks();
+           }
+        }else{
+            gui.trashGegnerschiesstlinks();
+            if(gui.Gegnerschiesstrechts.once == false){
+               gui.addGegnerschiesstrechts();
+            }
+        }      
+    }
+    
+    public void zeichneLaedtnach(){
+        gui.trashGegnerschiesstlinks();
+        gui.trashGegnerschiesstrechts();
+        
+        if(pX > derHeld.pX){
+            gui.trashGegnerlaedtnachrechts();
+            if(gui.Gegnerlaedtnachlinks.once == false){
+                gui.addGegnerlaedtnachlinks();
+            }
+        }else{
+            gui.trashGegnerlaedtnachlinks();
+            if(gui.Gegnerlaedtnachrechts.once == false){
+                gui.addGegnerlaedtnachrechts();
+            }          
+        }
+        
     }
 
-    //@Override
-    public void berechneSpiel(long delta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //@Override
-    public void gibAktuellesBild() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //@Override
-    public void zeichne(Graphics g, int breite, int hoehe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //@Override
-    public void doAnimation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

@@ -27,6 +27,7 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     
      
     Spielfigur F = new Spielfigur(this);
+    private BufferedImage Projektil;
     private static final long serialVersionUID = 1L;
     boolean game_lauft = true;
 
@@ -46,6 +47,10 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     Sprite Heldsteht;
     Sprite Heldspringtlinks;
     Sprite Heldspringtrechts;
+    Sprite Gegnerschiesstlinks;
+    Sprite Gegnerschiesstrechts;
+    Sprite Gegnerlaedtnachlinks;
+    Sprite Gegnerlaedtnachrechts;
     Vector<Sprite> actors;
     
     BufferedImage[] heldlinks;
@@ -53,14 +58,16 @@ public class GUI extends javax.swing.JPanel implements Runnable {
     BufferedImage[] heldsteht;
     BufferedImage[] heldspringtlinks;
     BufferedImage[] heldspringtrechts;
+    BufferedImage[] gegnerschiesstlinks;
+    BufferedImage[] gegnerschiesstrechts;
+    BufferedImage[] gegnerlaedtnachlinks;
+    BufferedImage[] gegnerlaedtnachrechts;
     
     public GUI() {
         initComponents();
         this.setFocusable(true);
         strg = new Steuerung(this);
-        initAlleBilder();
-        
-        
+        initAlleBilder();            
     }
     
     public void paintComponent(Graphics g){
@@ -156,6 +163,73 @@ public class GUI extends javax.swing.JPanel implements Runnable {
             
             return anim;
     }
+    private BufferedImage[] loadBilderGegnerSchiesstLinks(int bilder){
+        
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/GegnerSchiesstLinks.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+    }
+    
+    private BufferedImage[] loadBilderGegnerSchiesstRechts(int bilder){
+        
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/GegnerSchiesstRechts.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+    }
+    
+    private BufferedImage[] loadBilderGegnerLaedtNachLinks(int bilder){
+        
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/GegnerLaedtNachLinks.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+    }
+    
+    private BufferedImage[] loadBilderGegnerLaedtNachRechts(int bilder){
+        
+            BufferedImage[] anim = new BufferedImage[bilder];
+            BufferedImage source = null;
+            
+            
+            try{
+                source = ImageIO.read(new File("bilder/GegnerLaedtNachRechts.png"));
+            }catch(IOException ioe){ioe.printStackTrace();}
+            
+            for(int x=0;x<bilder;x++){
+                anim[x] = source.getSubimage(x*source.getWidth()/bilder, 0, source.getWidth()/bilder, source.getHeight());        
+            }
+            
+            return anim;
+    }
     
     private void computeDelta(){
         delta = System.nanoTime() -last;
@@ -211,6 +285,10 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         
     }
     
+    public void zeichneProjektil(Graphics g){
+       g.drawImage(Projektil, strg.bogenschuetze.getProjektilX(), strg.bogenschuetze.getProjektilY(), 10, 10, null);
+    }
+    
     public void initAlleBilder(){
         
         last = System.nanoTime();
@@ -222,13 +300,24 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         heldsteht = this.loadBilderHeldSteht(2);
         heldspringtlinks = this.loadBilderHeldSpringtLinks(1);
         heldspringtrechts = this.loadBilderHeldSpringtRechts(1);
+        gegnerschiesstlinks = this.loadBilderGegnerSchiesstLinks(2);
+        gegnerschiesstrechts = this.loadBilderGegnerSchiesstRechts(2);
+        gegnerlaedtnachlinks = this.loadBilderGegnerLaedtNachLinks(2);
+        gegnerlaedtnachrechts = this.loadBilderGegnerLaedtNachRechts(2);
         Heldlinks = new Sprite(heldlinks,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         Heldrechts = new Sprite(heldrechts,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         Heldsteht = new Sprite(heldsteht,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         Heldspringtlinks = new Sprite(heldspringtlinks,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         Heldspringtrechts = new Sprite(heldspringtrechts,strg.getHeldX(),strg.getHeldY(),0,this,strg);
+        Gegnerschiesstlinks = new Sprite(gegnerschiesstlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        Gegnerschiesstrechts = new Sprite(gegnerschiesstrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        Gegnerlaedtnachlinks = new Sprite(gegnerlaedtnachlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        Gegnerlaedtnachrechts = new Sprite(gegnerlaedtnachrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
 
         
+        try{
+           Projektil = ImageIO.read(new File("bilder/Projektil.png"));
+        }catch(IOException ioe){ioe.printStackTrace();}
         
         if(!this.once){
             this.once = true;
@@ -263,6 +352,26 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         Heldspringtrechts.once = false;
     }
     
+    public void trashGegnerschiesstlinks(){
+        Gegnerschiesstlinks.remove = true;
+        Gegnerschiesstlinks.once = false;
+    }
+    
+    public void trashGegnerschiesstrechts(){
+        Gegnerschiesstrechts.remove = true;
+        Gegnerschiesstrechts.once = false;
+    }
+    
+    public void trashGegnerlaedtnachlinks(){
+        Gegnerlaedtnachlinks.remove = true;
+        Gegnerlaedtnachlinks.once = false;
+    }
+    
+    public void trashGegnerlaedtnachrechts(){
+        Gegnerlaedtnachrechts.remove = true;
+        Gegnerlaedtnachrechts.once = false;
+    }
+    
     public void addHeldsteht(){
         Heldsteht = new Sprite(heldsteht,strg.getHeldX(),strg.getHeldY(),100,this,strg);
         actors.add(Heldsteht); 
@@ -291,6 +400,30 @@ public class GUI extends javax.swing.JPanel implements Runnable {
         Heldspringtrechts = new Sprite(heldspringtrechts,strg.getHeldX(),strg.getHeldY(),0,this,strg);
         actors.add(Heldspringtrechts);
         Heldspringtrechts.once=true;
+    }
+    
+    public void addGegnerschiesstlinks(){
+        Gegnerschiesstlinks = new Sprite(gegnerschiesstlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);     
+        actors.add(Gegnerschiesstlinks);
+        Gegnerschiesstlinks.once=true;
+    }
+    
+    public void addGegnerschiesstrechts(){
+        Gegnerschiesstrechts = new Sprite(gegnerschiesstrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        actors.add(Gegnerschiesstrechts);
+        Gegnerschiesstrechts.once=true;
+    }
+    
+    public void addGegnerlaedtnachlinks(){
+        Gegnerlaedtnachrechts = new Sprite(gegnerlaedtnachlinks,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        actors.add(Gegnerlaedtnachlinks);
+        Gegnerlaedtnachlinks.once=true;
+    }
+    
+    public void addGegnerlaedtnachrechts(){
+        Gegnerlaedtnachrechts = new Sprite(gegnerlaedtnachrechts,strg.bogenschuetze.getX(),strg.bogenschuetze.getY(),300,this,strg);
+        actors.add(Gegnerlaedtnachrechts);
+        Gegnerlaedtnachrechts.once=true;
     }
     
     
