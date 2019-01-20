@@ -24,7 +24,7 @@ public class Held extends Spielfigur {
     private Hindernis dieHindernisse[];
     private static Sprung derSprung;
     private boolean berührtHindernis;
-    private Steuerung control;
+    public Steuerung control;
     private boolean inDerLuft;
 
     GUI gui;

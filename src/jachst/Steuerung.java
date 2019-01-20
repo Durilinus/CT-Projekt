@@ -39,7 +39,7 @@ public class Steuerung {
     private final int KASTENMENGEY = 10;
     private static final int hindernisPX[] = {100, 200, 300, 400};
     private static final int hindernisPY[] = {400, 400, 400, 400};
-    private File jump, death, win, step;
+    private File jump, death, win, step, wow, pew, warp;
     Sprite sprite;
     int zaehler;
     private Projektil kugel;
@@ -49,6 +49,9 @@ public class Steuerung {
         death = new File("sounds/death.wav");
         win = new File("sounds/Win.wav");
         step = new File("sounds/step.wav");
+        wow = new File("sounds/wow.wav");
+        pew = new File("sounds/pew.wav");
+        warp = new File("sounds/warp.wav");
         dieGUI = gui;
         neuesSpiel();
     }
@@ -62,6 +65,10 @@ public class Steuerung {
         zaehler = 0;
         t1 = new Timer(4, new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                if(rolf.leben==false){
+                    stop();
+                }
+                
                 bewegeAlleMobs(1, false);
                 if (zaehler == 400) {
                     bogenschuetze.attacke();
@@ -136,7 +143,7 @@ public class Steuerung {
         if (hitboxHindernisse != null) {
             aenderHitboxenHindernis();
         }
-
+        playSound(warp);
     }
 
     private void playSound(File f) {
@@ -155,8 +162,10 @@ public class Steuerung {
         if (rolf.leben == true) {
             playSound(win);
             playSound(win);
+            playSound(wow);
             JOptionPane.showMessageDialog(dieGUI, "GEWONNEN!!!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
         } else {
+            playSound(death);
             JOptionPane.showMessageDialog(dieGUI, "AUA, DAS TAT WEH", "GESTORBEN", JOptionPane.WARNING_MESSAGE);
         }
         System.exit(0);
@@ -165,10 +174,13 @@ public class Steuerung {
     public void playJump() {
         playSound(jump);
     }
-
-    public void playStep() {
-        playSound(step);
+    public void playPew(){
+        playSound(pew);
     }
+
+  //  public void playStep() {
+    //    playSound(step);
+    //}
 
     public void springenderRolf() {
         rolf.springe();
@@ -348,7 +360,7 @@ public class Steuerung {
             if (hitboxHeld.intersects(hitboxHindernisse[i]) == true) {
                 if (welt[aktuelleWelt].level[i].gibTödlich() == true) {
                     rolf.leben = false;
-                    playSound(death);
+                  //  playSound(death);
                     stop();
                 }
                 System.out.println("erwiScht!!!!!!!!!!!!!!!!!!");

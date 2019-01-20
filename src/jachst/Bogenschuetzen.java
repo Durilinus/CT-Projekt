@@ -73,6 +73,7 @@ public class Bogenschuetzen {
             kugel = new Projektil(pX,pY,derHeld.pX,derHeld.pY);
             kugel.start();
             schiesst = true;
+            derHeld.control.playPew();
         }else{
             schiesst = false;
         }
